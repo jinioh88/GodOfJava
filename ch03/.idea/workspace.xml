@@ -58,8 +58,8 @@
       <file leaf-file-name="Profile.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Profile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+            <state relative-caret-position="150">
+              <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
               <folding>
                 <element signature="e#90#91#0" expanded="true" />
                 <element signature="e#109#110#0" expanded="true" />
@@ -69,7 +69,6 @@
                 <element signature="e#261#262#0" expanded="true" />
                 <element signature="e#299#300#0" expanded="true" />
                 <element signature="e#335#336#0" expanded="true" />
-                <element signature="e#373#374#0" expanded="true" />
                 <element signature="e#400#401#0" expanded="true" />
                 <element signature="e#431#432#0" expanded="true" />
                 <element signature="e#450#451#0" expanded="true" />
@@ -240,15 +239,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1534491818666</updated>
-      <workItem from="1534491821831" duration="2738000" />
+      <workItem from="1534491821831" duration="3314000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2738000" />
+    <option name="totallyTimeSpent" value="3314000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -260,7 +260,7 @@
       <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3298969" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3298969" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
@@ -333,8 +333,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Profile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+        <state relative-caret-position="150">
+          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
           <folding>
             <element signature="e#90#91#0" expanded="true" />
             <element signature="e#109#110#0" expanded="true" />
@@ -344,7 +344,6 @@
             <element signature="e#261#262#0" expanded="true" />
             <element signature="e#299#300#0" expanded="true" />
             <element signature="e#335#336#0" expanded="true" />
-            <element signature="e#373#374#0" expanded="true" />
             <element signature="e#400#401#0" expanded="true" />
             <element signature="e#431#432#0" expanded="true" />
             <element signature="e#450#451#0" expanded="true" />
