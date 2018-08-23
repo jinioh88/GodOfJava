@@ -92,3 +92,9 @@
       >   pubilc void atrb(String message, int... numbers)
     - 
   
+  ## 등가교환 연산자
+  - 기본 자료형은 같은 종류끼리 비교가 가능하다.
+  - char == int, double == int, boolean == boolean 같이 비교할 수 있다. 
+  - boolean == int 는 안된다. 
+
+  
