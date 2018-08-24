@@ -257,4 +257,59 @@
     - catch 문장에 아무런 처리를 하지 않는다면 문제가 어디서 발생했는지 전혀 찾을 수 없게 된다. 
     - 구글검색으로 '자바 예외 전략', 'java exception strategy'로 검색해 자료를 찾아보자
 
+## String
+  - String 클래스는 Serializable, Comparable, CharSequence 인터페이스를 구현하고 있다.
+  - Serializable은 객체를 파일로 저장하거나 다른 서버에 전송 가능한 상태가 된다. 
+  - Comparable은 객체의 순서를 처리할 때 유용하다. 
+  - Charset
+    - 영어를 제외한 것은 특수문자로 본다.
+    - 한글도 특수문자로 봐서 UTF-16을 많이 쓴다. 예전엔 EUC-KR, UTI-8을 많이 썻다. 
+  - 문자열을 byte로 변환하기
+    - 일반적으론 getBytes()를 쓰면 된다.
+    - 하지만 다른 시스템에서 전달 받은 물자열을 byte 배열로 변환할 떈 getBytes(Charset charset), getBytes(String charsetName)을 쓴다. 
+  - 문자열이 깨지는걸 방지하기 위해 byte 배열로 생성할 떄 사용한 캐릭터 셋을 문자열로 다시 전환할 때도 동일하게 사용해야 한다. 
+  - 객체의 null 체크는 반드시 필요하다. 
+    - String뿐만아니라 모든 객체를 처리할 떈 널 체크를 반드시 해야한다. 
+    - null인 겍체의 메서드에 접근하면 NullPointException이 발생한다. 
+    - 메서드로 넘어오는 객체가 널일 확률이 조금이라도 있다면 반드시 한 번씩 null체크를 고려하자. 
+  - String의 내용을 비교하고 검색하는 메서드
+    - 문자열이 비었는지 확인
+      - isEmpty()를 쓰면 된다. 문자열의 길이가 0인자 확인하는 것보다 이게 훨씬 간단하다. 
+    - 문자열 길이가 같은지 확인
+      - equals, compareTo, contentEquals 메소드로 분류할 수 있다. 
+      - IgnoreCase가 붙은 메서드들은 대소문자 구분을 할지 안할지 여부이다. 
+      - 자바에선 객체들을 재사용하기 위한 'Constant Pool'이라는 것이 있다. String의 경우 동일한 값을 갖는 객체가 있으면 이미 만든 객체를 사용한다. 
+      - new String()으로 객체를 따로 생성한다면, Constant Pool의 값을 재활용하지 않고 별도의 객체를 생성한다. 
+    - 특정 조건에 맞는 문자열이 있는지 확인 메서드
+      - startsWith() : 매개 변수로 넘겨준 값으로 시작하는지 확인.
+      - startsWith(), endsWith() 메소드를 사용하면 원하는 값이 해당하는 물자열에 있는지 쉽게 확인할 수 있다. 
+      - 중간값에 있는 것은 contains()로 확인한다. matches()도 동일 기능인데 이것은 정규표현식을 되어 있어야 한다. 
+        - 인사이트의 "손에 잡히는 정규 표현식" 책을 참고.
+    - String 내에서 위치 찾는 방법
+      - indexOf(), lastIndexOf() 메서드를 활용하자. 둘의 차이는 검색 시작 위치만 다를 뿐이지 리턴하는 값의 위치는 같다. 
+    - 문자열 일부를 잘라내는 법
+      - substring()을 사용하는데, 보통 indexOf()메서드와 함께 사용한다. 
+    - 문자열을 여러개 String 배열로
+      - 정규 표현식을 사용해 문자열을 나눈다면 split()을 사용한다. 
+      - 그렇지 않고 특정 String으로 문자열을 나눈다면 StringTokenizer 클래스를 사용하는 것이 편하다. 
+  - String 값을 바꾸는 메서드
+    - String을 조작하기 전에 null인지 먼저 체크하는 습관을 들이자. 
+    - replace()는 문자열 내용중 일부를 바꾸는 건데, 기존 문자열의 값은 바뀌지 않는다. 
+  - 기본 자료형을 문자열로 변환 - valueOf()
+    - 기본 자료형에 + "문자열"을 해줘도 같은 기능이 된다.
+    - String으로 변환만 해 놓고 별도의 문자열과 합치는 과정이 없을 경우에는 valueOf()를 사용하는 걸 권장한다. 
+    - valueOf()의 매개변수로 Object가 왔을 때 toString()의 결과를 리턴해 준다. 이 때 객체가 null이면 null을 리턴해 주기 떄문에, nullException이 발생하는 결과를 방지하기 위해서 객체를 출력할 때 valueOf() 메서드를 사용하면 좋다. 
+  - StringBuffer, StringBuilder
+    - String은 immutable(불변)한 객체다.   
+    - String 객체는 변하지 않고, 문자열이 바뀌면 새로운 String 객체가 생성되고 기존껀 버려진다. '+'로 계속 더한다면 쓰레기 값이 증가할 것이다.
+    - 이런 단점을 보완하고자 StringBuffer와 StringBuiler가 나왔다.  두 기능은 동일 하다. 
+    - StringBuffer는 Thread safe하고, StringBuilder는 Thread safe하지 않다. 
+      - StringBuffer가 더 안전. 속도는 Thread safe하지 않는것이 빠르다. 
+      - 두 클래스에서 append() 메서드를 사용하면 된다. 
+      - JDK 5 부턴 String의 더하기 연산을 할 경우 컴파일 할때 자동으로 해당 연산을 StringBuilder로 변환해 준다. 
+        - 단 for루프와 반복 연산을 할 땐 자동으로 변환해 주지 않는다. 
+      - String, StringBffer, StringBuilder 모두 CharSequence 인터페이스를 구현했다.
+        - 이 세개의 클래스를 사용해 매개 변수로 받은 작업을 할 때 String, StringBuffer 타입으로 받는것 보다 CharSequence 타입으로 받는게 좋다. 
+        - 어떤 변수가 여러 Thrad에서 이 변수에 동시 접근하는 일이 생긴다면 StringBuffer를 사용해야만 한다. 
+
 
