@@ -444,4 +444,31 @@
 
 ### Map
   - 키와 값이 1:1로 매칭된다. 키는 중복 안된다. 
-  -   
+  - keySet() : 키 목록을 Set타입으로 리턴
+  - values() : 값 목록을 Collection 타입으로 리턴. 
+  - entrySet() : Map 안에 Entry라는 타입의 Set을 리턴. Entry엔 단 하나의 키와 값만 저장된다. 
+  - Hashtable
+    - Map 인터페이스를 구현했긴 했다. 
+    - Map은 컬렉션 뷰를 이요하고, Hashtable은 Enumeration 객체를 통해 데이터 처리한다. 
+    - Map은 이터레이션을 처리하는 도중 데이터를 삭제하는 안전한 방법을 제공하지만 Hashtable은 그렇지 못하다.
+    - HashMap은 키나 값에 null 저장 가능하지만 해시테이블은 그렇지 못하다.
+    - HashMap은 여러 쓰레드에 안전하지 않고, 해시테이블은 안전하다. 
+  - 해시 테이블을 제외한 Map으로 끝나는 클래스들은 여러 쓰레드 동시접근에 안전 하지 않다.
+    - Map map = Collections.synchronizedMap(new HashMap(...)); 이렇게 쓰자
+  - HashMap
+    - 생성자는 기본으로 쓰는게 좋지만, 담을 데이터가 많다면 초기 크기를 지정해 줄것을 권장한다. 
+    - 키는 기본형과 참조 자료형 모두 가능하다. 
+    - 키가 되는 객체를 직접 작성할 떈 개발툴에서 제공하는 hashCode(), equals()를 생성하자. p.641 다시 보기
+    - null인걸 불러오면 null을 리턴한다.(Collection 에서는 익셉션 발생 했엇음)
+    - 추가 삭제 모두 put()을 사용
+    - 맵에 키를 확인하려면 keySet()을 이용한다. get()을 사용하려면 키를 알아야 해서.
+    - 값을 받아올떄는 values()만 쓰면 된다. 
+    - 무작정 get()으로 키나 값이 있는지 확인하는 거보단, containsKey(), containsValue()를 사용하는게 좋다. 
+  - TreeMap
+    - 키를 정렬하려면 HashMap은 여러 과정이 필요하다. 
+    - Arrays 클래스를 사용해도 되는데 불필요한 객체가 생기는 단점이 있따.
+    - 정렬된 목록을 원할 떄 TreeMap 사용한다. 
+  - Prperties 클래스
+    - Hashtable을 확장함
+    - 쓰는 이유는 load(), store() 등의 함수 때문이다. 
+    - 데이터 저장과 읽기를 한줄로 할 수 있다. 
