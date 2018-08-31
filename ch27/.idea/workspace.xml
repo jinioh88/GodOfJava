@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35a3d16-840a-4d43-bf57-4a501ed6bfe4" name="Default" comment="" />
+    <list default="true" id="2963db36-386a-4597-8056-6efb86e99ac5" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,24 +12,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TimeerThread.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/e/thread/practice/TimeerThread.java">
+      <file leaf-file-name="SerialDTO.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/e/io/object/SerialDTO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="14" column="21" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="21" />
-              <folding>
-                <element signature="e#93#94#0" expanded="true" />
-                <element signature="e#113#114#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="170">
+              <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Timermain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/e/thread/practice/Timermain.java">
+      <file leaf-file-name="ManageObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/e/io/object/ManageObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+            <state relative-caret-position="94">
+              <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -56,12 +55,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/SleepThread.java" />
-        <option value="$PROJECT_DIR$/src/RunSupportThreads.java" />
-        <option value="$PROJECT_DIR$/src/StateThread.java" />
-        <option value="$PROJECT_DIR$/src/RunObjectThreads.java" />
-        <option value="$PROJECT_DIR$/src/e/thread/practice/Timermain.java" />
-        <option value="$PROJECT_DIR$/src/e/thread/practice/TimeerThread.java" />
+        <option value="$PROJECT_DIR$/src/e/io/object/ManageObject.java" />
+        <option value="$PROJECT_DIR$/src/e/io/object/SerialDTO.java" />
       </list>
     </option>
   </component>
@@ -84,31 +79,31 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="ch25" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ch25" type="462c0819:PsiDirectoryNode" />
+              <item name="ch27" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ch27" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ch25" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ch25" type="462c0819:PsiDirectoryNode" />
+              <item name="ch27" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ch27" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="ch25" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ch25" type="462c0819:PsiDirectoryNode" />
+              <item name="ch27" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ch27" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="practice" type="462c0819:PsiDirectoryNode" />
+              <item name="object" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -130,19 +125,14 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Timermain">
-    <configuration name="RunObjectThreads" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="RunObjectThreads" />
-      <module name="ch25" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    </configuration>
-    <configuration name="Timermain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="e.thread.practice.Timermain" />
-      <module name="ch25" />
+  <component name="RunManager">
+    <configuration name="ManageObject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="e.io.object.ManageObject" />
+      <module name="ch27" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="e.thread.practice.*" />
+          <option name="PATTERN" value="e.io.object.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -188,14 +178,9 @@
       <properties />
       <listeners />
     </configuration>
-    <list>
-      <item itemvalue="Application.RunObjectThreads" />
-      <item itemvalue="Application.Timermain" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Timermain" />
-        <item itemvalue="Application.RunObjectThreads" />
+        <item itemvalue="Application.ManageObject" />
       </list>
     </recent_temporary>
   </component>
@@ -204,17 +189,17 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c35a3d16-840a-4d43-bf57-4a501ed6bfe4" name="Default" comment="" />
-      <created>1535696872459</created>
+      <changelist id="2963db36-386a-4597-8056-6efb86e99ac5" name="Default" comment="" />
+      <created>1535703179928</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1535696872459</updated>
-      <workItem from="1535696875870" duration="4146000" />
+      <updated>1535703179928</updated>
+      <workItem from="1535703182138" duration="1777000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4146000" />
+    <option name="totallyTimeSpent" value="1777000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -230,7 +215,7 @@
       <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3298969" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298969" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
@@ -257,57 +242,20 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/SleepThread.java">
+    <entry file="file://$PROJECT_DIR$/src/e/io/object/ManageObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
+        <state relative-caret-position="94">
+          <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
           <folding>
-            <element signature="e#101#102#0" expanded="true" />
-            <element signature="e#143#144#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RunSupportThreads.java">
+    <entry file="file://$PROJECT_DIR$/src/e/io/object/SerialDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/StateThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding>
-            <element signature="e#109#110#0" expanded="true" />
-            <element signature="e#146#147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/RunObjectThreads.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/e/thread/practice/Timermain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/e/thread/practice/TimeerThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="14" column="21" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="21" />
-          <folding>
-            <element signature="e#93#94#0" expanded="true" />
-            <element signature="e#113#114#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="24" column="44" lean-forward="true" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
         </state>
       </provider>
     </entry>
