@@ -472,3 +472,65 @@
     - Hashtable을 확장함
     - 쓰는 이유는 load(), store() 등의 함수 때문이다. 
     - 데이터 저장과 읽기를 한줄로 할 수 있다. 
+
+### 쓰레드
+  - 자바 명령어로 클래스를 실행시키면 JVM이 시작된다. 
+  - JVM이 시작되면 자바 프로세스가 시작된다. 
+    - 프로세스내에 여러 쓰레드가 실행된다.
+  - 프로세스마다 JVM은 기본적으로 32~64MB를 점유한다. 쓰레드는 1MB 이내에 메모리를 점유한다.
+    - 단일 쓰레드로 여러 프로세스 실행보단, 다중 쓰레드가 더 빠르고, 메모리 관리에 좋다. 
+  - Runnable 인테페이스, Thread 클래스
+    - 쓰레드 생성은 Runnable 인터페이스 사용, Thead 클래스 사용 두가지가 있다. 
+    - Thrad가 구현이 더 편해 Thread 선호. 
+    > 
+        RunnableSample runnable = new RunnableSample();
+        new Therad(runnable).start();  // Runnable 실행방법
+
+        ThreadSample thread = new ThreadSample();
+        thread.start();  // Thread 방식 실행방법
+    - 자바에선 하나의 클래스만 확장할 수 있으므로, 쓰레드 클래스가 다른 클래스 확장할 필요가 있을 땐 Runnable 인터페이스를 구현하고, 그렇지 않으면 쓰레드 클래스를 사용하는게 편하다. 
+    - start()를 호출하면 run() 메서드 내용이 끝나든 말든 쓰레드를 시작한 메서드에서 그 다음 줄이 실행된다. 
+    - 쓰레드는 run() 메서드가 종료되면 끝난다. 
+    - 쓰레드 시작할 때 100 숫자를 넘겨주고 싶다면? --> 쓰레드를 상속받은 생성자에 매개변수로 받으면 된다. 
+  - sleep() 메서드
+    - 사용할 땐 항상 try-catch로 묶어준다. 적어도 InterrptedException을 catch해주자.  
+  - 쓰레드 함수
+    - 쓰레드우선순위는 기본 값이 5이다. 
+      - 우선순위를 지정할 일이 있다면 상수로 지정하다. MAX_PRIORITY, NORMA_PRIORITY, MIN_PRIMRITY
+      - 가능하면 우선순위는 지정안하는게 좋다. 
+    - 데몬을 지정하려면 쓰레드 사용 이전에 해야된다. 데몬을 사용하면 쓰레드가 아직 끝나지 않았더라도, JVM이 끝날 수 있다. 
+    - 데몬 쓰레드가 종료되지 않았더라도, 다른 실행중인 일반 쓰레드가 없으면 프로세스는 중지된다. 
+  - synchronized
+    - 어떤 클래스나 메서드가 쓰레드에 안전하려면, synchronized를 사용해야 한다. 
+    - 메서드에서 인스턴스 변수를 수정하려 할 때에만 동시성 연산에 문제가 발생한다. 
+    - 사용방법
+      - 메서드 자체를 synchronized로 선언하는 방법
+      - 메서드 특정 문장만 synchronized로 감싸는 방법 2가지가 있다. 
+      - 메서드 자체를 synchronized 하면 성능상 문제가 발생할 수 있다. 
+      - 인스턴스 변수를 처리하는 부분에만 synchronized 블럭을 해주면 성능 문제가 해결된다.
+        - 일반적으로 별도의 객체를 선언해 사용한다. (잠금 처리 객체)
+        > 
+          Object lock = new Object();
+          
+          public void puls(int value) {
+            synchronized(lock) {
+              amount += value;
+            }
+          }
+
+          public void minus(int value) {
+            synchronized(lock) {
+              amount += value;
+            }
+          }
+        - 하나의 클래스에 인스턴스 변수가 2개 있다면, 잠금처리 객체가 하나면 문제가 되서 2개를 별도로 만들면 효율적인 프로그램이 된다. 
+    - synchronized는 같은 객체를 참조할 때만 유효하다. 
+    - 인스턴스 변수가 선언된 객체를 다른 쓰레드에서 공유할 일이 없다면 synchronized를 사용 안해도 된다. 
+    - StringBuffer는 쓰레드에 안전해서 하나의 문자열에 객체를 여러 쓰레드에 공유하는 경우 사용한다. 
+    - StringBuilder는 쓰레드에 안전하지 않아 여러 쓰레드에서 공유할 일이 없을 때 사용한다. 
+    - stop() 메서드는 안전상 deprecated됬다. interrupt()로 쓰레드를 멈추자. 
+    - interrpted()는 본인의 쓰레드가 중지됬는지 확인
+    - isInterrupted()는 다른 쓰레드에서 확인할 때 사용.
+    - notify()는 먼저 대기한 쓰레드 먼저 풀어준다. 함께 풀어줄라면 notifyAll()을 이용하는게 좋다. 
+    - ThreadGroup
+      - 쓰레드 그룹은 tree 구조를 가진다. 
