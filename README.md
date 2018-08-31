@@ -534,3 +534,31 @@
     - notify()는 먼저 대기한 쓰레드 먼저 풀어준다. 함께 풀어줄라면 notifyAll()을 이용하는게 좋다. 
     - ThreadGroup
       - 쓰레드 그룹은 tree 구조를 가진다. 
+
+### I/O
+  - 
+
+### Serilizable
+  - 우리가 만든 클래스가 파일에 읽고 쓸수 있게 하거나, 다른 서버로 보내거나 받으려면 반드시 Serializable 인터페이스를 구현해야 한다. 
+  - 이 인터페이스 구현 후 seralVersionUID라는 값을 지정하는걸 권장. 지정 안하면 컴파일때 자동 생성.
+    > static final long serialVersionUID = 1L;
+  - 반드시 static final long으로 선언하고 이름도 serialVersionUID로 선언해 줘야 한다. 
+    - 이 변수는 서버A에서 서버B로 DTO 객체를 보낼때 해당 객체가 같은지 다른지 확인용으로 쓰인다. 
+    - 클래스 이름이 같더라도 ID 값이 다르면 다른걸로 인식한다. 
+    - ID가 같아도 DTO의 변수 개수나 타입이 다르면 다른 클래스로 인식한다. 
+  - 객체 저장
+    - ObjectOutputStream 클래스로 객체를 저장하고, ObjectInputStream 클래스로 저장한 객체를 읽는다.
+  - 객체 읽기
+    - Serializable 객체의 형태가 변경되면(인스턴스 변수 추가 등...) 컴파일시 serialVersionUID가 다시 생성되 읽어오지 못한다. 
+    - 해결하려면 클래스에 serialVersionUID 변수를 추가해 주자. 
+    - Serializable 객체가 변경되면 serialVersionUID의 값을 변경해 주는 습관을 들이자.
+  - transient 예약어
+    - 객체를 저장하거나 다른 JVM 으로 보낼 때, transient 예약어를 사용한 변수는 Serializable의 대상에서 제외된다. 
+      - 보안상 중요한 변수에 권장한다. 
+
+### 자바 NIO(New IO)
+  - 속도 때문에 JDK1.4 부터 추가 됬다. 
+  - 스트림을 사용하지 않고 채널과 버퍼를 사용한다. 
+  - NIO에서 데이터 주고 받으래 버퍼를 통해 처리한다. 
+  - Channel은 객체만 생성하여 read(), write() 메서드를 불러주면 된다. 
+  - NIO는 파일을 읽고쓰기, 복사, 네트워크로 데이터 주고 받을때도 사용한다. 
