@@ -556,6 +556,31 @@
     - 객체를 저장하거나 다른 JVM 으로 보낼 때, transient 예약어를 사용한 변수는 Serializable의 대상에서 제외된다. 
       - 보안상 중요한 변수에 권장한다. 
 
+### I/O
+  - I/O??
+    - JVM 기준으로 Input, Output을 구분한다. 
+    - java.io 패키지에 바이트 기반 데이터를 처리하기 위한 여러 스트림 클래스를 제공한다. 
+    - 읽는 작업은 InputStream, 쓰는 작업은 OutputStream을 통해 작업한다.
+    - 바이트가 아닌 char 기반 문자열은 Reader, Writer 크랠스로 처리한다. 
+  - 자바의 File과 Files 클래스
+    - File은 파일 및 경로 정보를 통제하기 위한 클래스다. 
+    - File의 몇가지 불편사항이 있어 java7부터 java.nio.file 패키지의 Files라는게 나왔다. 
+  - File 클래스에서 separator라는게 있는데, 파일 경로를 윈도우건 유닉스계열이건 통일하게 맞춰 준다. 
+    >   String pathName = File.separator+"godofjava+File.separator+"text";
+  - InputStream, OutputStream
+    - I/O는 기본적으로 InputStream, OutputStream이라는 abstractt 클레스를 통해 제공한다.
+    - 쓸때는 확장한 자식클래스를 활용한다. 
+    - 해당 리소스(파일, 네트워크 등등...)를 다른 클래스에서도 작업할 수 있도록 java.io 패키지에 있는 클래스를 사용할때 작업 종료 후 작업중인 대상을 close()로 항상 닫아주자. 
+    -  FileInput Stream : 텍스트보단 이미자와 같은 바이트 코드 읽어올때 사용.
+    - OutputSteram에 Flushable을 받는데, flush()가 있다. 
+  - Reader Writer
+    - char 기반 문자열 처리 클래스인데, 텍스트 에디터로 쉽게 볼 수 있는 파일들을 처리하기 위한 클래스다. 
+    - 모든 작업 후 close()는 꼭 해주자. 
+    - Wireter에 write()와 append()는 같은 기능을 하는데, 만들어진 문자열이 String타입이면 write()를 StringBuilder, StringBuffer면 append()를 사용하자. 
+    - write()나 append()로 데이터를 쓰면, 메서드 호출할 때마다 파일에 쓰기 때문에 비효율적이다.
+      - BufferedWriter를 쓰도록 하자. 버퍼 공간에 데이터 보관 했다 버퍼가 차면 데이터를 저장한다. 
+  - Scanner 클래스는 텍스트 기반의 기본 자료형이나 문자열 데이터를 처리하기 위한 클래스다.
+
 ### 자바 NIO(New IO)
   - 속도 때문에 JDK1.4 부터 추가 됬다. 
   - 스트림을 사용하지 않고 채널과 버퍼를 사용한다. 
