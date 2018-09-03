@@ -587,3 +587,63 @@
   - NIO에서 데이터 주고 받으래 버퍼를 통해 처리한다. 
   - Channel은 객체만 생성하여 read(), write() 메서드를 불러주면 된다. 
   - NIO는 파일을 읽고쓰기, 복사, 네트워크로 데이터 주고 받을때도 사용한다. 
+
+### Java7
+  - 2진수 표현 0b가 추가 됨. 
+  >   int binalVal = 0b1001001001;
+  - '_'사용 가능(숫자에서만 가능. 10진수 8진수에서만)
+  >   int million = 1_000_000;
+  - switch-case 문장에 String도 사용 가능해짐. 단 문자열이 null인지 꼭 확인
+  - 생성자에 있는 new와 클래스 이름 사이에 타입을 이름을 명시적으로 두려면, 다이아몬드 <>를 사용하면 안된다. 
+  - @SafeVararages
+    - 가변 매개 변수 사용할 때 내부적으로 Object의 배열로 처리된다.
+    - 잠재적으로 문제가 발생할 수 있어 애노테이션을 붙인다. 
+    - 가변 매개 변수를 사용하고, final이나 static으로 선언되있어야 이 애너테이션을 사용할 수 있다. 
+  - 예외도 변경됨.
+    - 여러 catch 블록에서 처리하는 방식이 동일하다면, '|'기호로 여러개 쓸 수 있다. 
+    - catch(IllegalArgumentException | FileNotFoundException | NullPointException exception)...
+  - try-with-resource
+    - 자바7에서 AutoCloseable 인터페이스가 추가 됬다. 
+    - try-with-resource를 사용하면 이 인터페이스를 사용한 클래스는 별도의 close를 안해도 된다. 
+  - java.io.Closeable 인터페이스는 AutoCloseable을 새로 상속 받게 되서 이 인터페이스를 사용하는 클래스를 close 안해줘도 된다.  
+
+### Java7에 추가 된 것
+  - Fork/Join 클래스가 있는데 Fork는 여러 개로 나누는 것을 말하고, Join은 나누어 작업한 결과를 모으는 것을 말한다. 
+    - Fork/Join에 Work steal 개념이 기본적으로 포함된다. (다시 보기)
+  - NIO2
+    - 
+### Java8
+  - Optional
+    - 기본 객체 생성하지 않는다. empty(), of(), ofNullable()을 리턴한다. 
+  - 날짜 관련 클래스
+    - Date, SimpleDateFormatter는 조금 문제가 있었다. 
+    - 자바 8에서 java.time 패키지를 만들었다. 
+    - 국제화 시간을 위해 ZonedDateTime, LocaleDate가 추가됨. 
+  - 병렬 배열 정렬
+    - 배열 정렬은 Arrays 클래스를 사용하는 것이다. 
+    - binarySearch() 배열 내에서의 검색
+    - copyOf() 배열 복제
+    - equals() : 배열 비교
+    - fill() : 배열 채우기
+    - hashCode() : 배열의 해시코드 제공
+    - sort() : 정렬(단일 쓰레드로 수행), paralleSort(필요에 따라 여러 개의 쓰레드로 나뉘어 작업 수행)
+      - 갯수가 적은 배열은 sort()를 쓰자. 
+    - toString() : 배열 내용 출력
+  - StringJoiner
+    - 배열 구분을 콤마로 할때 배열 마지막 뒤에 콤마 처리를 쉽게 해 준다. 
+    - 스프림과 람다표현식으로도 같은기능 구현할 수 있다. 
+  - Lambda
+    - 익명 클래스의 가독성을 좋게 한다. 
+    - 인터페이스 메서드가 하나 인 것들만 적용 가능 하다. (==기능적 인터페이스)
+    - 인터페이스에 메서드 하나만 하기 위해 @FuntionalInterface를 붙이면 편하다. 
+  - Stream
+    - 연속된 정보를 처리하는데 사용한다. 
+    - 컬렉션엔 스트림 사용가능하고 배열은 스트림 사용 안된다. 
+      - 배열을 컬렉션의 List로 변환해주는 방법은 있다. 
+      - Arrays.asList(배열명);
+      - Arrays.stream(배열명).collect(Collectors.toList()); // 스트림 객체를 리턴. 
+    - 일반적인 웹프로그램에는 stream()을 사용한다. (parallelStream()있긴한데, 병렬처리라 잘 안씀. )
+    - map()으로 데이터를 특정 데이터로 변환 할 수 있다. 
+    - forEach()와 map()은 각각의 값을 처리하고, collect()는 모든 값을 한곳으로 모아 연산한다. 
+    - filter()
+      - 필요 없는 데이터나 웹 요청ㄷ르을 걸러낼 때 사용한다. 
