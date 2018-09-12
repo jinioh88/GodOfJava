@@ -422,7 +422,7 @@
 ### Set
   - 순서에 상관 없이 어떤 데이터가 존재하는 지 확인 하는 용도로 사용한다. 중복 방지
   - HashSet : 순서가 필요 없는 데이터를 해시 테이블에 저장. Set중 성능이 가장 좋음
-    - 데이터가 같ㅇ느지 확인하는 작업이 핵심이다. equals(), hashCode()를 구현한느건 중요하다. 
+    - 데이터가 같은지 확인하는 작업이 핵심이다. equals(), hashCode()를 구현한느건 중요하다. 
     - 생성자 인자에 로드팩터가 나오는데, 로드팩터 = 데이터의 개수/저장공간 을 의미한다. 
     - 로드팩터가 클수록 공간은 넉넉햊지만, 데이터 찾는 시간은 증가한다. 
   - TreeSet : 저장된 데이터의 값에 따라 정렬되는 셋. 
@@ -499,7 +499,7 @@
       - 우선순위를 지정할 일이 있다면 상수로 지정하다. MAX_PRIORITY, NORMA_PRIORITY, MIN_PRIMRITY
       - 가능하면 우선순위는 지정안하는게 좋다. 
     - 데몬을 지정하려면 쓰레드 사용 이전에 해야된다. 데몬을 사용하면 쓰레드가 아직 끝나지 않았더라도, JVM이 끝날 수 있다. 
-    - 데몬 쓰레드가 종료되지 않았더라도, 다른 실행중인 일반 쓰레드가 없으면 프로세스는 중지된다. 
+    - 데몬 쓰레드가 종료되지 않았더라도, 다른 실행중인 일반 쓰레드가 모두 중지되면 프로세스는 중지된다. 
   - synchronized
     - 어떤 클래스나 메서드가 쓰레드에 안전하려면, synchronized를 사용해야 한다. 
     - 메서드에서 인스턴스 변수를 수정하려 할 때에만 동시성 연산에 문제가 발생한다. 
@@ -647,3 +647,56 @@
     - forEach()와 map()은 각각의 값을 처리하고, collect()는 모든 값을 한곳으로 모아 연산한다. 
     - filter()
       - 필요 없는 데이터나 웹 요청ㄷ르을 걸러낼 때 사용한다. 
+
+### classpath
+  - 여러개의 jar 파일을 한꺼번에 사용하는 방법은, -classpath 옵션을 컴파일할 때나 실행할 때 다음과 같이 추가
+  >   
+      java -cp c:\godogjava Calculator
+  - 클래스 패스에 디렉터리만 지정해 주면 해당 디렉터리가 프로그램을 실행하는 기본 위치가 된다. 
+
+### ThreadLocal
+  - 쓰레드 별로 서로 다른 값을 처리해야 할 필요가 있을 때 ThreadLocal을 사용한다. 
+  - ThreadLocal 메서드는 initalValue(), set(), get(), remove()가 있다. 
+  - ThreadLocal 클래스의 변수는 private static final로 선언한다. 
+  - 사용이 끝난 후 remove()하는 습관을 들이자. 웹 기반에서 쓰레드 풀을 사용하는데, 끝나질 않아서...
+
+### 정리
+1. String 클래스와 StringBuilder, StringBuffer클래스의 차이.
+  - String은 불변, 나머지 둘은 변할 수 있다. 
+  - String은 문자열을 조작하는 경우 유용하고, 문자열, 숫자, char등을 concat할 땐 StringBuffer,StringBuilder사용.
+  - JDK 5부터 반복문이 아닌 곳에서 String의 +연산은 내부적으로 StringBuilder로 변환되어 처리 된다. 
+  - 복잡하지 않다면 String의 +로 처리해도 된다. 
+  - StringBuffer와 StringBuilder의 차이는 StringBuffer가 동기화를 지원한다. 
+  - 멀티쓰레드 환경에선 StringBuffer를 사용해 동기화를 보장 받는다. 
+
+2. String 클래스의 indexOf(), substring(), splie(), getBytes() 사용용도. 
+  - indexOf() : 지정한 문자가 문자열에 몇번재 위치해 있는지 확인
+    >   int indexOf = str.indexOf("d");  // d의 위치를 반환.
+  - substring() : 문자열에 지정한 범위의 문자열 반환 (끝나는 범위는 포함하지 않음.)
+    >   String substr = str.substring(0,2);
+  - split() : 지정한 문자로 문자열을 배열로 반환. 
+    > String[] res = str.split(":"); // :로 문자열을 나눔.
+  - getBytes() : 문자열의 바이트 배열을 돌려줌. 
+
+3. System 클래스의 주요 용도
+  - 주요 기능은 시스템에 대한 정보를 확인하는 것이다. 
+  - err, in, out 3가지 변수가 있다. 
+
+4. System 클래스에서 절대 개발자가 절대 사용하면 안되는 메서드
+  - GC 수행 메서드
+  - JVM  종료 메서드
+
+5. 제네릭사용 이유
+  - Object의 타입 변환을 하지 않아도 된다. 
+  - 잘못된 형변환으로 인한 컴파일 에러를 줄일수 있다. 
+
+6. Set의 용도와 주요 클래스 
+  - 순서에 신경 쓰지 않을 때 Set을 사용. 
+  - 데이터 유무만 중요함. 
+  - HashSet : 순서 없는 데이터를 hash table에 저장. 성능 굳
+  - TreeSet : 저장된 데이터의 값에 따라 저장. 
+  - LinkedHashSet : 저장 순서에 따라 값이 정렬. 가장 느림.
+
+7. Set에서 데이터를 꺼내오는 방법
+  - iterator를 사용한다. 
+  - for each문으로도 가능
