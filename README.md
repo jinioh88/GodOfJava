@@ -149,7 +149,7 @@
       - instanceof로 타입을 점검할 땐 부모 인스턴스인지 여부르 먼저 점검하면 안된다. 모든 결과가 부로로 찍힐 가능성이...
       - instanceof로 타입 점검할 땐 가장 하위에 있는 자식부터 확인하는게 안전하다. 
   - Polymorphism(다형성))
-    - 형 변환을 하더라도, 실제 호출된는 것은 원래 객체에 있는 메서드가 호출된다(new 생성자를 사용한 클래스). 
+    - 형 변환을 하더라도, 실제 호출된는 것은 원래 객체에 있는 메서드가 호출된다(new 생성자를 사용한 클래스  ). 
 
 ## Object
   - 모든 클래스는 Object 클래스를 상속 받는데, Object 클레스에 있는 메서드들을 통해 클래스의 기본적인 행동을 정의할 수 있기 떄문이다. 
@@ -167,6 +167,7 @@
     - equals() 오버라이딩할 떈 hashCode()도 같이 오버라이딩 해줘야한다. 
   - hashCode()
     - 객체의 메모리 주소를 16진수로 리턴한다. 
+  - hascode, equals오버라이딩은 툴의 자동완성을 이용하자. 
 
 ## 인터페이스
   - DAO라는 패턴이 있는데 데이터를 저장하는 저장소에서 원하는 값을 요청하고 응답을 받는다. 
@@ -200,6 +201,7 @@
       // 다음과 같이 풀어 쓸 수 있다.
       OverTImeValues value = OverTImeValues.THREE_HOUR;
       int myAmount = manager.getOverTimeAmount(value);
+  - enum은 생성자를 만들 수 있지만 생성자를 통해 객체를 생성할 수 없다. 
   - enum 상수 값을 지정하는 것은 가능하다. 단 동적으론 할당이 안된다. 
   - enum에서 생성자는 private와 package-private 접근 제어자를 사용할 수 있다. public, protected 안된다. 
     - 각 상수를 enum 클래스 내에서 선언할 때에만 이 생성자를 사용할 수 있따. 
@@ -316,7 +318,7 @@
 ## 클래스 안의 클래스
   - 클래스 안의 클래스를 'Nested 클래스'라고 부른다. 
   - 이 것이 있는 이유는 코드를 간단하게 표현하기 위함이다. 
-  - Nested 클래스는 선언한 방법에 따라 'Static nested클래스'dhk '내부 클래스'로 구분된다.
+  - Nested 클래스는 선언한 방법에 따라 'Static nested클래스'와 '내부 클래스'로 구분된다.
   ![image](https://user-images.githubusercontent.com/37525926/44575422-ee68aa00-a7c6-11e8-8202-219e283d2a95.png)
   - Static nested 클래스와 내부 클래스의 차이는 static으로 선언되 있는 지 여부다. 
   - 내부 클래스는 두가지로 나뉘는데, 이름이 있는 내부클래스는 '로컬 내부 클래스', 이름 없는 클래스를 '익명 내부 클래스'라고 부른다. 
@@ -343,31 +345,62 @@
     - Static Nested 클래스에서는 감싸고 있는 클래스의 static 변수만 참조할 수 있다. 
     - 내부 클래스와 익명 클래스는 감싸고 있는 클래스의 어떤 변수라도 참조할 수 있다. 
 
+## JVM
+  - JDK : Java Develope Kit
+  - JRE : Java Runtime Environment. 실행만을 위한 환경. 
+  - JVM : 작성한 자바프로그램이 수행되는 프로세스. JVM 위에서 어플리케이션이 동작함. 
+    - JVM이 메모리관리를 알아서 한다. (가비지 컬렉터)
+  - GC 
+    - JVM은 다음 영역을 나누어 힙 공간에 객체를 관리한다. Young, Old, Perm
+    - Young 영역엔 젊은 객체, Old엔 늙은 객체가 자리잡고, Perm에는 클래스나 메서드에 대한 정보가 쌓인다. 
+    - Young 영역에는 Eden과 두개의 Survivor 영역으로 나뉘고, 객체를 생성하자 마자 저장되는 장소는 Eden이다. 
+      - Eden 영역에 객체가 생성되고
+      - Eden 영역이 꽉차면 살아있는 객체만 Survivor영역으로 복사되고 다시 Eden 영역을 채운다.
+      - Survivor 영역이 꽉차면 다른 Survivor 영역으로 객체가 복사된다. 이때 Eden 영역에 있는 개체들 중 살하있는 객체들도 다른 Suvivor 영역으로 간다. 즉 Survivor 영역의 둘 중 하나는 반드시 비어 있어야 한다. 
+    - 오래 살아 있는 객체는 Old 영역으로 이동한다. Old 영역이 꽉차면 GC가 발생한다. 
+    - 오라클 JDK에서 제공하는 GC의 방식은 5가지가 있다.
+      - WAS 로 사용하는 JVM에서 사용하면 안되는 것은 Serial GC다. 이는 -client 옵션을 지정했을때 사용된다. 
+   
+
+
 ## java.lang
+  - lang 패키지에는 언어관련 기본, 문자열 관련, 기본 자료형 및 숫자관련, 쓰레드 관련, 예외 관련, 런타임 관련등이 있다. 
   - 숫자를 처리하는 클래스들
     - 자바에서 기본 자료형은 힙이 아닌 스택에 저장되 관리된다. (속도 빠름)
     - 기본 자료형의 숫자를 객체로 처리하고 플때 숫자 처리 타입 클래스를 사용한다. 
     - Boolean, Character를 제외한 숫자 처리 클래스는 Wrapper 클래스라 불리고, Number라는 추상클래스를 확장한다. 
-    - parseXXX() 메서드는 기본 자료형을 리턴하고, valueOf() 메서드는 참조 자료형을 리턴한다. 
+    - parseXXX() 메서드는 기본 자료형을 리턴하고, valueOf() 메서드는 참조 자료형을 리턴한다. 문자열을 숫자 타입으로 변환.
+    - 참조 자료형 중 Byte, Short, Integer, Long, Float, Doutble 타입은 필요시 기본 자료형처럼 사용할 수 있다. new를 안만들어도 됨. 
     - 참조 자료형 만든 이유?
       - 매개 변수를 참조 자료형으로만 받는 메서드를 처리하기 위해
       - 제네릭을 사용하기 위해
       - MIN_VALUE, MAX_VALUE같은 클래스의 상수값을 사용하기 위해
       - 문자열을 숫자로, 숫자를 문자로 쉽게 변환하고, 진수 표현을 쉽게 처리하기 위함.
         - 진수의 숫자 표현하고 플때, 직접 구현보단 이를 활용하자. 
+        - Integer.toBinaryString(숫자);  Integer.toHexString(숫자);
+        - 돈계산과 같이 중요한 연산을 수행할때 정수형은 BigInteger, 소수형은 BigDecimal을 상용해야 정확한 계산이 가능하다. 
   
   - 각종 정보를 확인하기 위한 System 클래스
     - 3개의 static 변수가 선언되 있다. (err, in, out)
+    - 출력과 관련된 메서드는 System 클래스 말고 PrintSteam 클래스에서 찾아야 한다. 
+    - 출력을 위한 부분들은 out과 err로 선언된 PrintStream과 관련이 있다. 
+    - System 클래스는 시스템에 대한 정보를 확인하는 클래스이다. 
+      - 시스템 속성값 관리, 시스템 환경값 관리, GC수행, JVM종료, 현재 시간 조회, 기타 관리용메서드들의 역할을 한다. 
+      - GC 수행과 JVM 종료 관련 메서드는 절대로 수행해선 안된다. 
+    - 자바프로그램을 실행하면 Properties 객체가 생성되고 언제 어디서든 같은 JVM 내에서 꺼내 사용할 수 있다. Hashtable을 상속받는다.
     - 현재 시간 조회
       - currentTimeMillis() : 현재 시간을 나타낼때 유용하다.
       - nanoTime() : 시간 차이를 측정하기 위한 용도의 메서드. 
   
   - System.out
     - write() 메서드가 있지만 잘 사용 안한다. 
+    - print()와 println()는 단순히 toString() 메서드 결과를 출력하지 않는다. 그래서 다음 결과는 null을 리턴한다.
+      >   Object obj = null;   System.out.println(obj);
+      >   System.out.println(obj.toString());  // 예외가 발생한다.
     - println()으로 객체를 출력할 때 String의 valueOf()가 실행된다. (toString이 실행되는거 아님. null값 처리 때문))
-    - 객체를 출력할 때는 toString()보단 valueOf()메서드를 사용하는 것이 훨 안전하다. 
-      - toString하면 예외 발생. 
-    - null 과 문자열을 합치면 예외가 발생하지 않는다. 컴파일러에서 더하기 문장을 StringBuilder로 변환하기 때문. .
+    - 객체를 출력할 때는 toString()보단 valueOf()메서드를 사용하는 것이 훨 안전하다.  
+    - null 과 문자열을 합치면 예외가 발생하지 않는다. 컴파일러에서 더하기 문장을 StringBuilder로 변환하기 때문(StringBuilder의 append()로 처리)
+    - format()과 printf() 메서드는 이름만 다르고 기능은 같다. 
 
 ### 제네릭
   - 제네릭?
@@ -534,9 +567,6 @@
     - notify()는 먼저 대기한 쓰레드 먼저 풀어준다. 함께 풀어줄라면 notifyAll()을 이용하는게 좋다. 
     - ThreadGroup
       - 쓰레드 그룹은 tree 구조를 가진다. 
-
-### I/O
-  - 
 
 ### Serilizable
   - 우리가 만든 클래스가 파일에 읽고 쓸수 있게 하거나, 다른 서버로 보내거나 받으려면 반드시 Serializable 인터페이스를 구현해야 한다. 
