@@ -135,7 +135,7 @@
   - 오버라이딩
     - 부모 클래스의 메서드가 자식클래스에도 있다면 오버라이딩 인데, 리턴값을 마음데로 바꾸지 못한다. 
     - 자식클래스에서 접근자는 접근 권한이 부모보다 크거나 같아야 한다. ex) 부모가 public이면 자식이 private면 오류.
-  - 참조 자료형의 형변환(다시 보기.. 블로그 정리)
+  - 참조 자료형의 형변환
     - 자바 컴파일러에선 자식 객체를 생성할 때 부모 생성자를 사용하면 안된다고 못을 밖았다. 명시적 형변환 해줘야 한다. 
     - 명시적 형 변환을 해도 예외가 발생 할 수 있다. 
       >
@@ -143,13 +143,13 @@
           Child child = new Child();
           Parent parent2 = child;  // 가능
           Child child2 = (Child)parent;   // 형변환 필요. 컴파일은 되지만 예외가 발생한다. 
-          Child child3 = (Child)parent2;  // 형변환 필요. 정상 작동한다. parent2가 겉보기엔 Parent 지만 child를 대입해줘 Child로 형변환 됬기 때문 
-    - 일반적으로 여러 개의 값을 처리 하거나, 매개 변수로 값을 보낼 땐 보통 부모 클래스의 타입으로 보낸다. 
+          Child child3 = (Child)parent2;  // 형변환 필요. 정상 작동한다. parent2가 겉보기엔 Parent 지만 child를 대입해줘 Child로 형변환 됬기 때문(힙의 Child객체를 가리킴) 
+    - 일반적으로 여러 개의 값을 처리 하거나, 매개 변수로 값을 보낼 땐 보통 부모 클래스의 타입으로 보낸다.(배열...) 
       - 근데 부모는 넘겨주는 타입이 부모인지 자식인지 모르니 instanceof로 구분한다.
       - instanceof로 타입을 점검할 땐 부모 인스턴스인지 여부르 먼저 점검하면 안된다. 모든 결과가 부로로 찍힐 가능성이...
       - instanceof로 타입 점검할 땐 가장 하위에 있는 자식부터 확인하는게 안전하다. 
   - Polymorphism(다형성))
-    - 형 변환을 하더라도, 실제 호출된는 것은 원래 객체에 있는 메서드가 호출된다. 
+    - 형 변환을 하더라도, 실제 호출된는 것은 원래 객체에 있는 메서드가 호출된다(new 생성자를 사용한 클래스  ). 
 
 ## Object
   - 모든 클래스는 Object 클래스를 상속 받는데, Object 클레스에 있는 메서드들을 통해 클래스의 기본적인 행동을 정의할 수 있기 떄문이다. 
@@ -167,6 +167,7 @@
     - equals() 오버라이딩할 떈 hashCode()도 같이 오버라이딩 해줘야한다. 
   - hashCode()
     - 객체의 메모리 주소를 16진수로 리턴한다. 
+  - hascode, equals오버라이딩은 툴의 자동완성을 이용하자. 
 
 ## 인터페이스
   - DAO라는 패턴이 있는데 데이터를 저장하는 저장소에서 원하는 값을 요청하고 응답을 받는다. 
@@ -200,6 +201,7 @@
       // 다음과 같이 풀어 쓸 수 있다.
       OverTImeValues value = OverTImeValues.THREE_HOUR;
       int myAmount = manager.getOverTimeAmount(value);
+  - enum은 생성자를 만들 수 있지만 생성자를 통해 객체를 생성할 수 없다. 
   - enum 상수 값을 지정하는 것은 가능하다. 단 동적으론 할당이 안된다. 
   - enum에서 생성자는 private와 package-private 접근 제어자를 사용할 수 있다. public, protected 안된다. 
     - 각 상수를 enum 클래스 내에서 선언할 때에만 이 생성자를 사용할 수 있따. 
@@ -316,7 +318,7 @@
 ## 클래스 안의 클래스
   - 클래스 안의 클래스를 'Nested 클래스'라고 부른다. 
   - 이 것이 있는 이유는 코드를 간단하게 표현하기 위함이다. 
-  - Nested 클래스는 선언한 방법에 따라 'Static nested클래스'dhk '내부 클래스'로 구분된다.
+  - Nested 클래스는 선언한 방법에 따라 'Static nested클래스'와 '내부 클래스'로 구분된다.
   ![image](https://user-images.githubusercontent.com/37525926/44575422-ee68aa00-a7c6-11e8-8202-219e283d2a95.png)
   - Static nested 클래스와 내부 클래스의 차이는 static으로 선언되 있는 지 여부다. 
   - 내부 클래스는 두가지로 나뉘는데, 이름이 있는 내부클래스는 '로컬 내부 클래스', 이름 없는 클래스를 '익명 내부 클래스'라고 부른다. 
@@ -343,31 +345,62 @@
     - Static Nested 클래스에서는 감싸고 있는 클래스의 static 변수만 참조할 수 있다. 
     - 내부 클래스와 익명 클래스는 감싸고 있는 클래스의 어떤 변수라도 참조할 수 있다. 
 
+## JVM
+  - JDK : Java Develope Kit
+  - JRE : Java Runtime Environment. 실행만을 위한 환경. 
+  - JVM : 작성한 자바프로그램이 수행되는 프로세스. JVM 위에서 어플리케이션이 동작함. 
+    - JVM이 메모리관리를 알아서 한다. (가비지 컬렉터)
+  - GC 
+    - JVM은 다음 영역을 나누어 힙 공간에 객체를 관리한다. Young, Old, Perm
+    - Young 영역엔 젊은 객체, Old엔 늙은 객체가 자리잡고, Perm에는 클래스나 메서드에 대한 정보가 쌓인다. 
+    - Young 영역에는 Eden과 두개의 Survivor 영역으로 나뉘고, 객체를 생성하자 마자 저장되는 장소는 Eden이다. 
+      - Eden 영역에 객체가 생성되고
+      - Eden 영역이 꽉차면 살아있는 객체만 Survivor영역으로 복사되고 다시 Eden 영역을 채운다.
+      - Survivor 영역이 꽉차면 다른 Survivor 영역으로 객체가 복사된다. 이때 Eden 영역에 있는 개체들 중 살하있는 객체들도 다른 Suvivor 영역으로 간다. 즉 Survivor 영역의 둘 중 하나는 반드시 비어 있어야 한다. 
+    - 오래 살아 있는 객체는 Old 영역으로 이동한다. Old 영역이 꽉차면 GC가 발생한다. 
+    - 오라클 JDK에서 제공하는 GC의 방식은 5가지가 있다.
+      - WAS 로 사용하는 JVM에서 사용하면 안되는 것은 Serial GC다. 이는 -client 옵션을 지정했을때 사용된다. 
+   
+
+
 ## java.lang
+  - lang 패키지에는 언어관련 기본, 문자열 관련, 기본 자료형 및 숫자관련, 쓰레드 관련, 예외 관련, 런타임 관련등이 있다. 
   - 숫자를 처리하는 클래스들
     - 자바에서 기본 자료형은 힙이 아닌 스택에 저장되 관리된다. (속도 빠름)
     - 기본 자료형의 숫자를 객체로 처리하고 플때 숫자 처리 타입 클래스를 사용한다. 
     - Boolean, Character를 제외한 숫자 처리 클래스는 Wrapper 클래스라 불리고, Number라는 추상클래스를 확장한다. 
-    - parseXXX() 메서드는 기본 자료형을 리턴하고, valueOf() 메서드는 참조 자료형을 리턴한다. 
+    - parseXXX() 메서드는 기본 자료형을 리턴하고, valueOf() 메서드는 참조 자료형을 리턴한다. 문자열을 숫자 타입으로 변환.
+    - 참조 자료형 중 Byte, Short, Integer, Long, Float, Doutble 타입은 필요시 기본 자료형처럼 사용할 수 있다. new를 안만들어도 됨. 
     - 참조 자료형 만든 이유?
       - 매개 변수를 참조 자료형으로만 받는 메서드를 처리하기 위해
       - 제네릭을 사용하기 위해
       - MIN_VALUE, MAX_VALUE같은 클래스의 상수값을 사용하기 위해
       - 문자열을 숫자로, 숫자를 문자로 쉽게 변환하고, 진수 표현을 쉽게 처리하기 위함.
         - 진수의 숫자 표현하고 플때, 직접 구현보단 이를 활용하자. 
+        - Integer.toBinaryString(숫자);  Integer.toHexString(숫자);
+        - 돈계산과 같이 중요한 연산을 수행할때 정수형은 BigInteger, 소수형은 BigDecimal을 상용해야 정확한 계산이 가능하다. 
   
   - 각종 정보를 확인하기 위한 System 클래스
     - 3개의 static 변수가 선언되 있다. (err, in, out)
+    - 출력과 관련된 메서드는 System 클래스 말고 PrintSteam 클래스에서 찾아야 한다. 
+    - 출력을 위한 부분들은 out과 err로 선언된 PrintStream과 관련이 있다. 
+    - System 클래스는 시스템에 대한 정보를 확인하는 클래스이다. 
+      - 시스템 속성값 관리, 시스템 환경값 관리, GC수행, JVM종료, 현재 시간 조회, 기타 관리용메서드들의 역할을 한다. 
+      - GC 수행과 JVM 종료 관련 메서드는 절대로 수행해선 안된다. 
+    - 자바프로그램을 실행하면 Properties 객체가 생성되고 언제 어디서든 같은 JVM 내에서 꺼내 사용할 수 있다. Hashtable을 상속받는다.
     - 현재 시간 조회
       - currentTimeMillis() : 현재 시간을 나타낼때 유용하다.
       - nanoTime() : 시간 차이를 측정하기 위한 용도의 메서드. 
   
   - System.out
     - write() 메서드가 있지만 잘 사용 안한다. 
+    - print()와 println()는 단순히 toString() 메서드 결과를 출력하지 않는다. 그래서 다음 결과는 null을 리턴한다.
+      >   Object obj = null;   System.out.println(obj);
+      >   System.out.println(obj.toString());  // 예외가 발생한다.
     - println()으로 객체를 출력할 때 String의 valueOf()가 실행된다. (toString이 실행되는거 아님. null값 처리 때문))
-    - 객체를 출력할 때는 toString()보단 valueOf()메서드를 사용하는 것이 훨 안전하다. 
-      - toString하면 예외 발생. 
-    - null 과 문자열을 합치면 예외가 발생하지 않는다. 컴파일러에서 더하기 문장을 StringBuilder로 변환하기 때문. .
+    - 객체를 출력할 때는 toString()보단 valueOf()메서드를 사용하는 것이 훨 안전하다.  
+    - null 과 문자열을 합치면 예외가 발생하지 않는다. 컴파일러에서 더하기 문장을 StringBuilder로 변환하기 때문(StringBuilder의 append()로 처리)
+    - format()과 printf() 메서드는 이름만 다르고 기능은 같다. 
 
 ### 제네릭
   - 제네릭?
@@ -422,7 +455,7 @@
 ### Set
   - 순서에 상관 없이 어떤 데이터가 존재하는 지 확인 하는 용도로 사용한다. 중복 방지
   - HashSet : 순서가 필요 없는 데이터를 해시 테이블에 저장. Set중 성능이 가장 좋음
-    - 데이터가 같ㅇ느지 확인하는 작업이 핵심이다. equals(), hashCode()를 구현한느건 중요하다. 
+    - 데이터가 같은지 확인하는 작업이 핵심이다. equals(), hashCode()를 구현한느건 중요하다. 
     - 생성자 인자에 로드팩터가 나오는데, 로드팩터 = 데이터의 개수/저장공간 을 의미한다. 
     - 로드팩터가 클수록 공간은 넉넉햊지만, 데이터 찾는 시간은 증가한다. 
   - TreeSet : 저장된 데이터의 값에 따라 정렬되는 셋. 
@@ -474,41 +507,226 @@
     - 데이터 저장과 읽기를 한줄로 할 수 있다. 
 
 ### 쓰레드
-  - 자바 프로그램을 사용하여 뒤에 클래스 이름을 붙이고, 엔터를 치면 적어도 하나의 JVM이 시작된다. 
-  - JVM이 시작되면 자바 프로세스가 시작한다. 이 프로세스 안에 여러 쓰레드가 존재한다. 
-  - 쓰레드를 안쓰면 여러 프로세스를 띄워야 하는데 JVM은 기본적으로 32~64MB 메모리를 점유하게 한다. 쓰레드는 1MB 이내 메모리를 점유한다. 
-  - 그래서 쓰레드를 경량 프로세스 라고도 부른다. 다중 쓰레드로 빠른 계산 처리도 할 수 있다.
-  - Runnable 인터페이스와 Thread 클래스
-    - 쓰레드 생성은 크게 2가지가 있다. Runnable인터페이스 사용과, Thread 클래스를 시용하는 것이다. 
-    - 두 쓰래드는 실행하는 방식이 다르다. 
-    - Thread가 수행되는 우리가 구현하는 메소드는 run() 이다.
-    - Thread를 시작하는 메서드는 start()다.
-    - Runnable인터페이스를 구현한 것은 쓰레드로 바로 시작할 수 없다. 그래서 쓰레드 클래스의 생성자에 해당 객체를 추가해 시작해야 한다. 
-      >     
-          RunnableSample runnableSample = new RunnableSample();
-          new Thread(runnableSample).start();
-    - 자바에선 다중 상속이 불가능 하니 다른 클래스를 상속하고 Thread를 상속하고 싶다면 인터페이스인 Runnbale을 구현하면 된다. 그렇지 않은경우 Thread 클래스를 이용한다.
-    - run() 메서드가 종료되면 쓰레드는 끝난다. 
-  - Thread의 생성자( p.669 다시보기)
-    - ㅇ
+  - 자바 명령어로 클래스를 실행시키면 JVM이 시작된다. 
+  - JVM이 시작되면 자바 프로세스가 시작된다. 
+    - 프로세스내에 여러 쓰레드가 실행된다.
+  - 프로세스마다 JVM은 기본적으로 32~64MB를 점유한다. 쓰레드는 1MB 이내에 메모리를 점유한다.
+    - 단일 쓰레드로 여러 프로세스 실행보단, 다중 쓰레드가 더 빠르고, 메모리 관리에 좋다. 
+  - Runnable 인테페이스, Thread 클래스
+    - 쓰레드 생성은 Runnable 인터페이스 사용, Thead 클래스 사용 두가지가 있다. 
+    - Thrad가 구현이 더 편해 Thread 선호. 
+    > 
+        RunnableSample runnable = new RunnableSample();
+        new Therad(runnable).start();  // Runnable 실행방법
+
+        ThreadSample thread = new ThreadSample();
+        thread.start();  // Thread 방식 실행방법
+    - 자바에선 하나의 클래스만 확장할 수 있으므로, 쓰레드 클래스가 다른 클래스 확장할 필요가 있을 땐 Runnable 인터페이스를 구현하고, 그렇지 않으면 쓰레드 클래스를 사용하는게 편하다. 
+    - start()를 호출하면 run() 메서드 내용이 끝나든 말든 쓰레드를 시작한 메서드에서 그 다음 줄이 실행된다. 
+    - 쓰레드는 run() 메서드가 종료되면 끝난다. 
+    - 쓰레드 시작할 때 100 숫자를 넘겨주고 싶다면? --> 쓰레드를 상속받은 생성자에 매개변수로 받으면 된다. 
   - sleep() 메서드
-    - 이거 쓸떄는 항상 try-catch로 묶어야 한다. InterruptedException으로 catch해 주자. 
-  - 우선순위가 있는데 정할 일이 있으면 3개의 우선순위 상수를 이용하자. 근데 왠만하면 우선선위는 안바꾸는제 좋음.
-  - 데몬쓰레드로 지정하려면 쓰레드 시작 전에 처리 해줘야한다. 
-    - 데몬으로 지정해주면 JVM이 끝나도 쓰레드가 살아있다. (p.676 다시)
+    - 사용할 땐 항상 try-catch로 묶어준다. 적어도 InterrptedException을 catch해주자.  
+  - 쓰레드 함수
+    - 쓰레드우선순위는 기본 값이 5이다. 
+      - 우선순위를 지정할 일이 있다면 상수로 지정하다. MAX_PRIORITY, NORMA_PRIORITY, MIN_PRIMRITY
+      - 가능하면 우선순위는 지정안하는게 좋다. 
+    - 데몬을 지정하려면 쓰레드 사용 이전에 해야된다. 데몬을 사용하면 쓰레드가 아직 끝나지 않았더라도, JVM이 끝날 수 있다. 
+    - 데몬 쓰레드가 종료되지 않았더라도, 다른 실행중인 일반 쓰레드가 모두 중지되면 프로세스는 중지된다. 
   - synchronized
-    - 메서드에서 인스턴스 변수를 수정하려 할 때만 동시 접근 할떄 꼬일 수 가 있다.
-    - 매개변수나 메서드에서만 사용하는 지역변수만 다루는 메서드는 synchronized가 필요없다. 
-    - 메서드 자체를 synchronied 하는 방법과, 메서드 내의 특정 문장만 synchronized로 감싸는 방법이 있다. 
-  - synchronized 블록
-    - 메서드에 synchronized를 추가하면 편하지만 성능상 문제점이 발생할 수 있다. 
-    - 사용할 변수를 처리하는 부분만 synchronized 처리를 해주자.
-    >
-        public void plus(int value){
-          synchronized(this) {
-            amount+=vale;
+    - 어떤 클래스나 메서드가 쓰레드에 안전하려면, synchronized를 사용해야 한다. 
+    - 메서드에서 인스턴스 변수를 수정하려 할 때에만 동시성 연산에 문제가 발생한다. 
+    - 사용방법
+      - 메서드 자체를 synchronized로 선언하는 방법
+      - 메서드 특정 문장만 synchronized로 감싸는 방법 2가지가 있다. 
+      - 메서드 자체를 synchronized 하면 성능상 문제가 발생할 수 있다. 
+      - 인스턴스 변수를 처리하는 부분에만 synchronized 블럭을 해주면 성능 문제가 해결된다.
+        - 일반적으로 별도의 객체를 선언해 사용한다. (잠금 처리 객체)
+        > 
+          Object lock = new Object();
+          
+          public void puls(int value) {
+            synchronized(lock) {
+              amount += value;
+            }
           }
-        }
-    - 위에선 그냥 this라고 지정했는데, 일반적으론 별도의 객체를 선언해 사용한다. p.683 다시
-  - 쓰레드를 통제하는 메서드들
+
+          public void minus(int value) {
+            synchronized(lock) {
+              amount += value;
+            }
+          }
+        - 하나의 클래스에 인스턴스 변수가 2개 있다면, 잠금처리 객체가 하나면 문제가 되서 2개를 별도로 만들면 효율적인 프로그램이 된다. 
+    - synchronized는 같은 객체를 참조할 때만 유효하다. 
+    - 인스턴스 변수가 선언된 객체를 다른 쓰레드에서 공유할 일이 없다면 synchronized를 사용 안해도 된다. 
+    - StringBuffer는 쓰레드에 안전해서 하나의 문자열에 객체를 여러 쓰레드에 공유하는 경우 사용한다. 
+    - StringBuilder는 쓰레드에 안전하지 않아 여러 쓰레드에서 공유할 일이 없을 때 사용한다. 
+    - stop() 메서드는 안전상 deprecated됬다. interrupt()로 쓰레드를 멈추자. 
+    - interrpted()는 본인의 쓰레드가 중지됬는지 확인
+    - isInterrupted()는 다른 쓰레드에서 확인할 때 사용.
+    - notify()는 먼저 대기한 쓰레드 먼저 풀어준다. 함께 풀어줄라면 notifyAll()을 이용하는게 좋다. 
+    - ThreadGroup
+      - 쓰레드 그룹은 tree 구조를 가진다. 
+
+### Serilizable
+  - 우리가 만든 클래스가 파일에 읽고 쓸수 있게 하거나, 다른 서버로 보내거나 받으려면 반드시 Serializable 인터페이스를 구현해야 한다. 
+  - 이 인터페이스 구현 후 seralVersionUID라는 값을 지정하는걸 권장. 지정 안하면 컴파일때 자동 생성.
+    > static final long serialVersionUID = 1L;
+  - 반드시 static final long으로 선언하고 이름도 serialVersionUID로 선언해 줘야 한다. 
+    - 이 변수는 서버A에서 서버B로 DTO 객체를 보낼때 해당 객체가 같은지 다른지 확인용으로 쓰인다. 
+    - 클래스 이름이 같더라도 ID 값이 다르면 다른걸로 인식한다. 
+    - ID가 같아도 DTO의 변수 개수나 타입이 다르면 다른 클래스로 인식한다. 
+  - 객체 저장
+    - ObjectOutputStream 클래스로 객체를 저장하고, ObjectInputStream 클래스로 저장한 객체를 읽는다.
+  - 객체 읽기
+    - Serializable 객체의 형태가 변경되면(인스턴스 변수 추가 등...) 컴파일시 serialVersionUID가 다시 생성되 읽어오지 못한다. 
+    - 해결하려면 클래스에 serialVersionUID 변수를 추가해 주자. 
+    - Serializable 객체가 변경되면 serialVersionUID의 값을 변경해 주는 습관을 들이자.
+  - transient 예약어
+    - 객체를 저장하거나 다른 JVM 으로 보낼 때, transient 예약어를 사용한 변수는 Serializable의 대상에서 제외된다. 
+      - 보안상 중요한 변수에 권장한다. 
+
+### I/O
+  - I/O??
+    - JVM 기준으로 Input, Output을 구분한다. 
+    - java.io 패키지에 바이트 기반 데이터를 처리하기 위한 여러 스트림 클래스를 제공한다. 
+    - 읽는 작업은 InputStream, 쓰는 작업은 OutputStream을 통해 작업한다.
+    - 바이트가 아닌 char 기반 문자열은 Reader, Writer 크랠스로 처리한다. 
+  - 자바의 File과 Files 클래스
+    - File은 파일 및 경로 정보를 통제하기 위한 클래스다. 
+    - File의 몇가지 불편사항이 있어 java7부터 java.nio.file 패키지의 Files라는게 나왔다. 
+  - File 클래스에서 separator라는게 있는데, 파일 경로를 윈도우건 유닉스계열이건 통일하게 맞춰 준다. 
+    >   String pathName = File.separator+"godofjava+File.separator+"text";
+  - InputStream, OutputStream
+    - I/O는 기본적으로 InputStream, OutputStream이라는 abstractt 클레스를 통해 제공한다.
+    - 쓸때는 확장한 자식클래스를 활용한다. 
+    - 해당 리소스(파일, 네트워크 등등...)를 다른 클래스에서도 작업할 수 있도록 java.io 패키지에 있는 클래스를 사용할때 작업 종료 후 작업중인 대상을 close()로 항상 닫아주자. 
+    -  FileInput Stream : 텍스트보단 이미자와 같은 바이트 코드 읽어올때 사용.
+    - OutputSteram에 Flushable을 받는데, flush()가 있다. 
+  - Reader Writer
+    - char 기반 문자열 처리 클래스인데, 텍스트 에디터로 쉽게 볼 수 있는 파일들을 처리하기 위한 클래스다. 
+    - 모든 작업 후 close()는 꼭 해주자. 
+    - Wireter에 write()와 append()는 같은 기능을 하는데, 만들어진 문자열이 String타입이면 write()를 StringBuilder, StringBuffer면 append()를 사용하자. 
+    - write()나 append()로 데이터를 쓰면, 메서드 호출할 때마다 파일에 쓰기 때문에 비효율적이다.
+      - BufferedWriter를 쓰도록 하자. 버퍼 공간에 데이터 보관 했다 버퍼가 차면 데이터를 저장한다. 
+  - Scanner 클래스는 텍스트 기반의 기본 자료형이나 문자열 데이터를 처리하기 위한 클래스다.
+
+### 자바 NIO(New IO)
+  - 속도 때문에 JDK1.4 부터 추가 됬다. 
+  - 스트림을 사용하지 않고 채널과 버퍼를 사용한다. 
+  - NIO에서 데이터 주고 받으래 버퍼를 통해 처리한다. 
+  - Channel은 객체만 생성하여 read(), write() 메서드를 불러주면 된다. 
+  - NIO는 파일을 읽고쓰기, 복사, 네트워크로 데이터 주고 받을때도 사용한다. 
+
+### Java7
+  - 2진수 표현 0b가 추가 됨. 
+  >   int binalVal = 0b1001001001;
+  - '_'사용 가능(숫자에서만 가능. 10진수 8진수에서만)
+  >   int million = 1_000_000;
+  - switch-case 문장에 String도 사용 가능해짐. 단 문자열이 null인지 꼭 확인
+  - 생성자에 있는 new와 클래스 이름 사이에 타입을 이름을 명시적으로 두려면, 다이아몬드 <>를 사용하면 안된다. 
+  - @SafeVararages
+    - 가변 매개 변수 사용할 때 내부적으로 Object의 배열로 처리된다.
+    - 잠재적으로 문제가 발생할 수 있어 애노테이션을 붙인다. 
+    - 가변 매개 변수를 사용하고, final이나 static으로 선언되있어야 이 애너테이션을 사용할 수 있다. 
+  - 예외도 변경됨.
+    - 여러 catch 블록에서 처리하는 방식이 동일하다면, '|'기호로 여러개 쓸 수 있다. 
+    - catch(IllegalArgumentException | FileNotFoundException | NullPointException exception)...
+  - try-with-resource
+    - 자바7에서 AutoCloseable 인터페이스가 추가 됬다. 
+    - try-with-resource를 사용하면 이 인터페이스를 사용한 클래스는 별도의 close를 안해도 된다. 
+  - java.io.Closeable 인터페이스는 AutoCloseable을 새로 상속 받게 되서 이 인터페이스를 사용하는 클래스를 close 안해줘도 된다.  
+
+### Java7에 추가 된 것
+  - Fork/Join 클래스가 있는데 Fork는 여러 개로 나누는 것을 말하고, Join은 나누어 작업한 결과를 모으는 것을 말한다. 
+    - Fork/Join에 Work steal 개념이 기본적으로 포함된다. (다시 보기)
+  - NIO2
     - 
+### Java8
+  - Optional
+    - 기본 객체 생성하지 않는다. empty(), of(), ofNullable()을 리턴한다. 
+  - 날짜 관련 클래스
+    - Date, SimpleDateFormatter는 조금 문제가 있었다. 
+    - 자바 8에서 java.time 패키지를 만들었다. 
+    - 국제화 시간을 위해 ZonedDateTime, LocaleDate가 추가됨. 
+  - 병렬 배열 정렬
+    - 배열 정렬은 Arrays 클래스를 사용하는 것이다. 
+    - binarySearch() 배열 내에서의 검색
+    - copyOf() 배열 복제
+    - equals() : 배열 비교
+    - fill() : 배열 채우기
+    - hashCode() : 배열의 해시코드 제공
+    - sort() : 정렬(단일 쓰레드로 수행), paralleSort(필요에 따라 여러 개의 쓰레드로 나뉘어 작업 수행)
+      - 갯수가 적은 배열은 sort()를 쓰자. 
+    - toString() : 배열 내용 출력
+  - StringJoiner
+    - 배열 구분을 콤마로 할때 배열 마지막 뒤에 콤마 처리를 쉽게 해 준다. 
+    - 스프림과 람다표현식으로도 같은기능 구현할 수 있다. 
+  - Lambda
+    - 익명 클래스의 가독성을 좋게 한다. 
+    - 인터페이스 메서드가 하나 인 것들만 적용 가능 하다. (==기능적 인터페이스)
+    - 인터페이스에 메서드 하나만 하기 위해 @FuntionalInterface를 붙이면 편하다. 
+  - Stream
+    - 연속된 정보를 처리하는데 사용한다. 
+    - 컬렉션엔 스트림 사용가능하고 배열은 스트림 사용 안된다. 
+      - 배열을 컬렉션의 List로 변환해주는 방법은 있다. 
+      - Arrays.asList(배열명);
+      - Arrays.stream(배열명).collect(Collectors.toList()); // 스트림 객체를 리턴. 
+    - 일반적인 웹프로그램에는 stream()을 사용한다. (parallelStream()있긴한데, 병렬처리라 잘 안씀. )
+    - map()으로 데이터를 특정 데이터로 변환 할 수 있다. 
+    - forEach()와 map()은 각각의 값을 처리하고, collect()는 모든 값을 한곳으로 모아 연산한다. 
+    - filter()
+      - 필요 없는 데이터나 웹 요청ㄷ르을 걸러낼 때 사용한다. 
+
+### classpath
+  - 여러개의 jar 파일을 한꺼번에 사용하는 방법은, -classpath 옵션을 컴파일할 때나 실행할 때 다음과 같이 추가
+  >   
+      java -cp c:\godogjava Calculator
+  - 클래스 패스에 디렉터리만 지정해 주면 해당 디렉터리가 프로그램을 실행하는 기본 위치가 된다. 
+
+### ThreadLocal
+  - 쓰레드 별로 서로 다른 값을 처리해야 할 필요가 있을 때 ThreadLocal을 사용한다. 
+  - ThreadLocal 메서드는 initalValue(), set(), get(), remove()가 있다. 
+  - ThreadLocal 클래스의 변수는 private static final로 선언한다. 
+  - 사용이 끝난 후 remove()하는 습관을 들이자. 웹 기반에서 쓰레드 풀을 사용하는데, 끝나질 않아서...
+
+### 정리
+1. String 클래스와 StringBuilder, StringBuffer클래스의 차이.
+  - String은 불변, 나머지 둘은 변할 수 있다. 
+  - String은 문자열을 조작하는 경우 유용하고, 문자열, 숫자, char등을 concat할 땐 StringBuffer,StringBuilder사용.
+  - JDK 5부터 반복문이 아닌 곳에서 String의 +연산은 내부적으로 StringBuilder로 변환되어 처리 된다. 
+  - 복잡하지 않다면 String의 +로 처리해도 된다. 
+  - StringBuffer와 StringBuilder의 차이는 StringBuffer가 동기화를 지원한다. 
+  - 멀티쓰레드 환경에선 StringBuffer를 사용해 동기화를 보장 받는다. 
+
+2. String 클래스의 indexOf(), substring(), splie(), getBytes() 사용용도. 
+  - indexOf() : 지정한 문자가 문자열에 몇번재 위치해 있는지 확인
+    >   int indexOf = str.indexOf("d");  // d의 위치를 반환.
+  - substring() : 문자열에 지정한 범위의 문자열 반환 (끝나는 범위는 포함하지 않음.)
+    >   String substr = str.substring(0,2);
+  - split() : 지정한 문자로 문자열을 배열로 반환. 
+    > String[] res = str.split(":"); // :로 문자열을 나눔.
+  - getBytes() : 문자열의 바이트 배열을 돌려줌. 
+
+3. System 클래스의 주요 용도
+  - 주요 기능은 시스템에 대한 정보를 확인하는 것이다. 
+  - err, in, out 3가지 변수가 있다. 
+
+4. System 클래스에서 절대 개발자가 절대 사용하면 안되는 메서드
+  - GC 수행 메서드
+  - JVM  종료 메서드
+
+5. 제네릭사용 이유
+  - Object의 타입 변환을 하지 않아도 된다. 
+  - 잘못된 형변환으로 인한 컴파일 에러를 줄일수 있다. 
+
+6. Set의 용도와 주요 클래스 
+  - 순서에 신경 쓰지 않을 때 Set을 사용. 
+  - 데이터 유무만 중요함. 
+  - HashSet : 순서 없는 데이터를 hash table에 저장. 성능 굳
+  - TreeSet : 저장된 데이터의 값에 따라 저장. 
+  - LinkedHashSet : 저장 순서에 따라 값이 정렬. 가장 느림.
+
+7. Set에서 데이터를 꺼내오는 방법
+  - iterator를 사용한다. 
+  - for each문으로도 가능
