@@ -431,25 +431,32 @@
   - Collection은 Iterable 인터페이스를 확장했는데, 이는 Iterator 인터페이스를 사용해 데이터를 순차적으로 가져올 수 있게 된다. 
   - Vector와 ArrayList는 기능이 거의 동일한데, Vector는 Thread Safe 하고, ArrayList는 그러지 않다. 
   - Stack은 Vector를 확장해 만들었다. 
+  - LinkedListㄴ는 목록에도 속하지만 큐에도 속한다. 
   - Vector보단 ArrayList를 많이 사용한다. 
   - 왠만하면 한 가지 종류의 객체만 저장하자. .여러 객체는 DTO 객체를 만들어 담자. 
   - 그래서 컬렉션 관련 클래스 객체 선언은 제네릭을 이용하자. 
-  - 저장되는 초기 크기는 기본이 10이라 데이터가 더들어가면 크기가 자동 증가는 되지만 성능상 아싸리 크게 잡자. 
+  - 저장되는 초기 크기는 기본이 10이라 데이터가 더들어가면 크기가 자동 증가는 되지만 성능상 크기가 어느정도 예측가능하면 아싸리 크게 잡는걸 권장
   - Collection을 매개 변수로 갖는 생성자가 존재한다. 셋과 큐 등을 복사하기 위함.
     - list2.add(list); 처럼 list2에 list를 추가하며 복사해도 된다.
     - 근데 다음 생성자를 통해 사용하면 편하다. ArrayList<String> list2 = ArrayList<>(list);
     - list2 = list; 처럼 치환해버리면 list 객체가 참조되고 있는 주소를 사용하겠다는 의미다. 
   - 하나의 Collection 관련 객체를 복사할 땐 생성자나, addAll()을 사용하는걸 권장한다. 
   - ArrayList는 중복이 가능해서 앞에서부터 찾을땐 indexOf()를 뒤에서 부터 찾을 땐 lastIndexOf()를 사용한다. 
-  - 배열로 뽑아 낼 땐 toArray()를 사용한다. p/603 다시보기
-  - 값을 변경하는 set() 메서드가 있는데 이거 모르면 특정 위치 삭제하고 그 위치에 add해야 한다...
+  - 데이터를 배열로 뽑아 낼 땐 toArray()를 사용한다. 
+    - toArray() : ArrayList객체에 있는 값을 Object[] 타입의 배열로 만든다.
+    - toArray(T[] a) : ArrayList 객체에 있는 값들을 매개변수 T 타입의 배열로 만든다. 위보다 이렇게 쓰는걸 더 추천한다.
+      - 매개변수로 배열의 타입을 넘기는데, toArray(new String[0]); 처럼 의미 없이 타입만 지정하기위해 사용할 수도 있다.
+      - 크기가 0인 배열을 넘겨주는 것이 가장 좋다.
+  - remove()는 매겨변수로 넘어온 객체와 동일한 첫 번쨰 데이터만 삭제하고, removeAll()은 매개변수로 넘어온 컬렉션에 있는 데이터와 동일한 모든 데이터를 삭제한다. 
+  - 값을 변경하는 set() 메서드가 있는데 이거 모르면 특정 위치 삭제하고 그 위치에 add해야 한다...set(int index, E element);
+  - treimToSize()는 ArrayList 객체 공간의 크기를 데이터 개수만큼 변경한다. 
   - ArrayList는 쓰레드에 안전하지 않으므로 안전하게 만들려면 다음과 같이 한다.
     - List list = Collections.synchronizedList(new ArrayList(...));
     - 이렇게 안하면 원하지 않은 데이터가 나올 수 있다. 
   - Stack
     - 웹 개발엔 잘 사용 안한다. 
     - 마지막에 들어온 데이터를 가장 처음 꺼내는 기능 구현할 때 필요하다. 
-      - 이기능을 위해선 ArrayDeque 클래스를 사용할 것을 권장한다. (쓰레드에 안전하진 않음)
+      - 이기능을 위해선 ArrayDeque 클래스를 사용할 것을 권장한다. (쓰레드에 안전하진 않음). 쓰레드에 안전하려면 Stack써.
     - Stack은 Vector를 상속받고 있는데, 원래 취지인 LIFO를 생각하면 잘 못받은 클래스다. (하위호환위해 남아있음).
 
 ### Set
@@ -458,14 +465,16 @@
     - 데이터가 같은지 확인하는 작업이 핵심이다. equals(), hashCode()를 구현한느건 중요하다. 
     - 생성자 인자에 로드팩터가 나오는데, 로드팩터 = 데이터의 개수/저장공간 을 의미한다. 
     - 로드팩터가 클수록 공간은 넉넉햊지만, 데이터 찾는 시간은 증가한다. 
-  - TreeSet : 저장된 데이터의 값에 따라 정렬되는 셋. 
+    - 출력방법은 for문과, iterator를 사용하는 방법이 있다. 
+  - TreeSet : 저장된 데이터의 값에 따라 정렬되는 셋. red-black이라는 트리 타입으로 값이 저정된다.(이진트리))
   - LinkedHashSet : 연결된 목록 타입으로 구현된 해시 테이블에 데이터 저장. 저장 된 순서에 따라 값이 정렬.
 
 ### Queue
   - 사용자들의 요청을 들어온 순서대로 처리할 떄 큐를 사용한다. 
 
 ### LinkedList
-  - List도 되고, Queue도 된다. 
+  - List도 되고, Queue, Deque도 된다. 
+    - List, Queeue, Deque 인터페이스를 구현하고 있다. 
   - 생성자로 객체의 생성크기를 지정하지 않는다.
   - push()는 앞쪽에 데이터 추가.
   - add(), offer()는 뒤쪽에 데이터 추가. 
@@ -474,36 +483,40 @@
   - 조회 함수는 기본이 아페껄 가져온다. getFirst()권장.
   - 삭제의 경우 여러 함수가 있는데, 혼동을 피하려면 remove 붙은 함수를 사용하자. 
   - ListIterator가 있는데, Iterator의 다음 데이터만 검색하는 단점을 보완 햇다. 
+    - descendingIteratort()도 있다. 뒤에서부터 검색.
 
 ### Map
   - 키와 값이 1:1로 매칭된다. 키는 중복 안된다. 
   - keySet() : 키 목록을 Set타입으로 리턴
   - values() : 값 목록을 Collection 타입으로 리턴. 
   - entrySet() : Map 안에 Entry라는 타입의 Set을 리턴. Entry엔 단 하나의 키와 값만 저장된다. 
-  - Hashtable
+  - Hashtable(JDK1.0 부터 나옴)
     - Map 인터페이스를 구현했긴 했다. 
-    - Map은 컬렉션 뷰를 이요하고, Hashtable은 Enumeration 객체를 통해 데이터 처리한다. 
+    - Map은 컬렉션 뷰를 이용하고, Hashtable은 Enumeration 객체를 통해 데이터 처리한다. 
     - Map은 이터레이션을 처리하는 도중 데이터를 삭제하는 안전한 방법을 제공하지만 Hashtable은 그렇지 못하다.
     - HashMap은 키나 값에 null 저장 가능하지만 해시테이블은 그렇지 못하다.
     - HashMap은 여러 쓰레드에 안전하지 않고, 해시테이블은 안전하다. 
   - 해시 테이블을 제외한 Map으로 끝나는 클래스들은 여러 쓰레드 동시접근에 안전 하지 않다.
     - Map map = Collections.synchronizedMap(new HashMap(...)); 이렇게 쓰자
+    - 이름에 Concurrent가 포함되잇는 것도 스레드에 안전하게 사용할 수 있다. ex) ConcurrentHashMap...
   - HashMap
     - 생성자는 기본으로 쓰는게 좋지만, 담을 데이터가 많다면 초기 크기를 지정해 줄것을 권장한다. 
     - 키는 기본형과 참조 자료형 모두 가능하다. 
-    - 키가 되는 객체를 직접 작성할 떈 개발툴에서 제공하는 hashCode(), equals()를 생성하자. p.641 다시 보기
-    - null인걸 불러오면 null을 리턴한다.(Collection 에서는 익셉션 발생 했엇음)
-    - 추가 삭제 모두 put()을 사용
+    - 키가 되는 객체 클래스를 직접 만들어 작성할 떈 개발툴에서 제공하는 hashCode(), equals()를 생성하자. p.641 다시 보기
+    - get()으로 키가 없는 걸 불러오면 null을 리턴한다.(Collection 에서는 익셉션 발생 했엇음)
+    - 추가 수정 모두 put()을 사용
     - 맵에 키를 확인하려면 keySet()을 이용한다. get()을 사용하려면 키를 알아야 해서.
-    - 값을 받아올떄는 values()만 쓰면 된다. 
+    - 값을 받아올떄는 values()만 쓰면 된다. 리턴타입이 Collection 타입의 목록이다.
+    - 데이터를 꺼내는 다른 방법으로 entrySet() 메서드가 있다. 
+      - Map에 선언된 Entry 타입 객체를 리턴한다. Entry에는 단 하나의 키와 값만 저장된다. Enrty의 getKey() getValue()로 꺼내오면 된다.
     - 무작정 get()으로 키나 값이 있는지 확인하는 거보단, containsKey(), containsValue()를 사용하는게 좋다. 
-  - TreeMap
+  - TreeMap(정렬된 키의 목록))
     - 키를 정렬하려면 HashMap은 여러 과정이 필요하다. 
     - Arrays 클래스를 사용해도 되는데 불필요한 객체가 생기는 단점이 있따.
     - 정렬된 목록을 원할 떄 TreeMap 사용한다. 
   - Prperties 클래스
-    - Hashtable을 확장함
-    - 쓰는 이유는 load(), store() 등의 함수 때문이다. 
+    - System 클래스에 Properties 라는 클래스가 있고 이는 Hashtable을 확장함
+    - Hashtable, HashMap 대신 쓰는 이유는 load(), store() 등의 함수 때문이다. 
     - 데이터 저장과 읽기를 한줄로 할 수 있다. 
 
 ### 쓰레드
