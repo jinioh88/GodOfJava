@@ -345,21 +345,41 @@
     - Static Nested 클래스에서는 감싸고 있는 클래스의 static 변수만 참조할 수 있다. 
     - 내부 클래스와 익명 클래스는 감싸고 있는 클래스의 어떤 변수라도 참조할 수 있다. 
 
-## JVM
+## 자바 기타 설명과 JVM
   - JDK : Java Develope Kit
   - JRE : Java Runtime Environment. 실행만을 위한 환경. 
   - JVM : 작성한 자바프로그램이 수행되는 프로세스. JVM 위에서 어플리케이션이 동작함. 
     - JVM이 메모리관리를 알아서 한다. (가비지 컬렉터)
-  - GC 
-    - JVM은 다음 영역을 나누어 힙 공간에 객체를 관리한다. Young, Old, Perm
+  - JIT(Just-In-Time)
+    - 동적 변환이라고 보면 된다. Java와 C#에서 사용한다. 
+    - 컴퓨터가 알아들을 수 있느 언어로 변환하는 작업은 인터프리터에 의해 지속적으로 수행되고, 필요한 코드의 정보는 캐시에 담아뒀다가 재사용한다. 
+    - 프로그램 실행을 보다 빠르게 하기 위해 만들었다.
+    - javac 명령어를 수행한다는 것은 텍스트 파일로 만든 java 파일을 어떤 os에서도 수행될 수 있도록 바이트 코드라는 파일로 만든 것 뿐이다. 
+      - 컴퓨터가 알아 먹을 수 있도록하려면 변환 작업이 필요.이 변환을 JIT컴파일러가 진행한다.
+    - 자바 소스코드 --> 자바 컴파일러 --> 컴파일된 Bytecode --> JVM --> 기계코드 --> 하드웨어 및 OS
+      - JVM --> 기계코드로 변환되는 부분을 JIT에서 수행한다. 
+    - JIT을 사용하면 반복적으로 수행되는 코드는 매우 빠른 성능을 보이지만, 처음 시작할 때 변환 단계를 거쳐야 하므로 성능이 느린 단점이 있다.
+      - 최근 CPU가 좋아지고, JDK 성능도 개선되 단점이 개선 되었다. 
+  - HotSpot
+    - 자바에서 HotSpot 클라이언트 컴파일러, HotSpot 서버 컴파일러 두 가지를 제공한다. 
+    - CPU 코어가 하나뿐인 사용자를 위해 만들어 진 것이 HotSpot 클라이언트 컴파일러이다. 
+      - 애플리케이션 시작 시간을 빠르게하고, 적은 메모리를 점유하도록 한다. 
+    - 코어가 많은 장비에서 애플리케이션을 돌리기 위해 만들어진 것이 HotSpot 서버 컴파일러이다. 
+      - 애플리케이션 수행 속도에 초점이 맞춰져 있다. 
+    - 자바가 실행될 때 기본적으로 알아서 클라이언트 장비인지 서버 장비인지 확인한다.  
+  - GC(가비지 컬렉션)
+    - JVM은 다음 영역을 나누어 힙 공간에 객체를 관리한다. Young, Old, Perm. (G1이라는 가비지 컬렉터 제외)
+    ![image](https://user-images.githubusercontent.com/37525926/45697269-59c45280-bba0-11e8-8dfc-664e05b82618.png)
     - Young 영역엔 젊은 객체, Old엔 늙은 객체가 자리잡고, Perm에는 클래스나 메서드에 대한 정보가 쌓인다. 
     - Young 영역에는 Eden과 두개의 Survivor 영역으로 나뉘고, 객체를 생성하자 마자 저장되는 장소는 Eden이다. 
+    - 자바에서 메모리가 살아가는 과정
       - Eden 영역에 객체가 생성되고
       - Eden 영역이 꽉차면 살아있는 객체만 Survivor영역으로 복사되고 다시 Eden 영역을 채운다.
-      - Survivor 영역이 꽉차면 다른 Survivor 영역으로 객체가 복사된다. 이때 Eden 영역에 있는 개체들 중 살하있는 객체들도 다른 Suvivor 영역으로 간다. 즉 Survivor 영역의 둘 중 하나는 반드시 비어 있어야 한다. 
-    - 오래 살아 있는 객체는 Old 영역으로 이동한다. Old 영역이 꽉차면 GC가 발생한다. 
+      - Survivor 영역이 꽉차면 다른 Survivor 영역으로 객체가 복사된다. 이때 Eden 영역에 있는 개체들 중 살하있는 객체들도 다른 Suvivor 영역으로 간다. 즉 Survivor 영역의 둘 중 하나는 반드시 비어 있어야 한다. (마이너GC or 영GC)
+    - 오래 살아 있는 객체는 Old 영역으로 이동한다. Old 영역이 꽉차면 GC가 발생한다. (메이저GC, 풀GC라고 부른다)
+    - 영GC가 풀GC보다 빠름. 일반적으로 더 작은 공간이 할당되고, 객체들을 처리하는 방식도 다르기 때문
     - 오라클 JDK에서 제공하는 GC의 방식은 5가지가 있다.
-      - WAS 로 사용하는 JVM에서 사용하면 안되는 것은 Serial GC다. 이는 -client 옵션을 지정했을때 사용된다. 
+      - WAS 로 사용하는 JVM에서 사용하면 안되는 것은 Serial GC다. 이는 -client 옵션을 지정했을때 사용된다. GC속도가 느려진다. 
    
 
 
@@ -406,7 +426,7 @@
   - 제네릭?
     - DTO 클래스는 private변수, getter, setter, Serializable을 구현해야 제대로 된것이다. 
     - Object로 받았을때 형변환해야 하는 문제점을 컴파일 할 때 없애기 위해 제네릭이 나왔다. 
-    - 형변환을 할 필요가 없어진다. 
+    - 형변환을 할 필요가 없어진다. (get()메서드에서 )
   - 제네릭 타입 이름 정하기 
     - 아무거나 써도 되지만 자바에서 정의한 기본 규칙이 있다.
     - E : 요소 (자바 컬렉션)
@@ -415,16 +435,65 @@
     - T : 타입
     - V : 값
   - 제네릭에 ?
+    ```java 
+    package d.generic;
+
+    public class WildcardGeneric<W> {
+      W wildcard;
+    public void setWildcard(W wildcard) {
+        this.wildcard = wildcard;
+    }
+    
+    public W getWildcard() {
+        return wildcard;
+    }
+    }
+    ```
+    ```java
+    package d.generic;
+
+    public class WildcardSample {
+    public static void main(String[] args) {
+        WildcardSample sample = new WildcardSample();
+        sample.callWildcardMethod();
+    }
+
+    public void callWildcardMethod() {
+        WildcardGeneric<String> wildcard = new WildcardGeneric<>();
+        wildcard.setWildcard("A");
+        wildcardStringMethod(wildcard);
+    }
+
+    public void wildcardStringMethod(WildcardGeneric<String> c){
+        System.out.println(c.getWildcard());
+    }
+    }
+    ```
+    - 위 코드의 문제점...
+      - wildcardStringMethod의 매개 변수로 String형의 WildcardGeniric 객체만 올 수 있다는 것...
+      - 제네릭한 클래스의 타입만 바꾼다고 오버로딩이 불가능하다 그럼 어찌하지?? 해서 나온게 '?'다.
+      - String 대신 ?를 적어주면 어떤 타입이 제네릭 타입이 되더라도 상관 없다.
+        - instanceof 사용해서
     - 메서드의 매개변수로 제네릭을 쓰려면 ?(wildcard)를 지정해야 한다. 
     - 매개변수로 오는 제네릭한 클래스의 타입만 바꾼다고 Overriding 되지 않는다. 
     - 매개변로 <>에 오는 것을 특정한 타입 대신 ?로 적어주면 어떤 타입의 제네릭이라도 상관없다. (어떤 값인지 모르기 때문에 Object로 넘어옴))
     - 매개 변수로 넘어오는 타입이 두세 가지로 정해진다면, 메서드 내에서 instanceof 예약어를 사용해 타입을 확인한다. 
-    - 와일드 카드는 함수의 매게변수로만 사용하자.
-  - 제네릭 선언에 사용하는 타입의 범위 지정
+    - 와일드 카드는 메서드의 매게변수로만 사용하자.
+    - 어떤 객체를 wildcard로 선언하고, 그 객체의 값은 가져올 수 있지만, whildcard로 객체를 선언했을 때는 특정 타입으로 값을 지정하는것은 불가능하다.
+  - 제네릭 선언에 사용하는 타입의 범위 지정(Bounded Wildcards)
     - ? 대신 ? extends 타입으로 선택해 하면 된다. extends 뒤에 오는거 상속받은 모든 클래스를 다 사용할 수 있다. 
-  - 메서드를 제네릭하게 선언(다시)
+  - 메서드를 제네릭하게 선언
+    - 앞선 방법에 문제가 있는데 매개 변수로 사용된 객체의 값을 추가할 수 없다는 문제...
     - 메서드 선언시 리턴 타입 앞에 제네릭한 타입을 선언해 주고, 그 타입을 매개 변수에 사용하면 컴파일에 문제없다. 
-    - 매개변수에 값도 할당해 줄 수 있다. (앞선 방식은 매개변수에 값 할당 못함)
+    - 매개변수에 값도 할당해 줄 수 있다. (앞선 방식은 매개변수로 사용된 객체에 값을 추가할 수 없다)
+    - ?를 사용하는 Wildcard처럼 타입을 두루뭉실하는 것보단 아래처럼 명시적으로 메서드 선언시 타입을 지정해주면 보다 코드가 견고해진다. 
+    ```java
+    public<T extends Car> void callWildcardMethod(WildcardGeneric<T> c, T addValue) {
+        c.setWildcard(addValue);
+        T value = c.getWildcard();
+        System.out.println(value);
+    }
+    ```
 
 ### List
   - 배열은 크기가 정해져 있을 때 유용하다. 
