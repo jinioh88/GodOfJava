@@ -17,7 +17,7 @@ public class LogClient {
         client1.doWork(32);
 
         File temp = File.createTempFile("test","log");
-        LogClient client2 = new LogClient(new FileLogging(temp);
+        LogClient client2 = new LogClient(new FileLogging(temp));
         client2.doWork(42);
     }
 }
