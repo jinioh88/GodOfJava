@@ -879,3 +879,72 @@
   - 팩토리 메서드는 클래스의 새로운 인스턴스를 반환하는 정적메서드다. 
   - 팩터리 메서드는 서브클래스의 객체를 반환 할 수도 있다.
   - 불필요하게 새 객체를 생성하는 대신 공유 객체를 반환하는 것도 가능하다.  
+
+## 인터페이스
+###  정적 메서드
+  - 인터페이스에서 정적 메서드를 사용해 팩터리 매서드를 구현하면, 호출자는 이 인스턴스가 어느 클래스의 인스턴스인지 신경 쓸 필요가 없다.
+  ```java
+  public interface IntSequence {
+    public static IntSequence digitsOf(int n) {
+        return new DigitSequence(n);
+    }
+  }
+  ```
+
+### defualt 메서드
+  - 인터페이스에서 기본 메서드에는 반드시 default를 분여야 한다. 
+  - 기본 메서드는 인터페이스를 진화 시킨다.
+    - 만약 일반 메서드로 했다면 구현한 클래스가 이를 구현안한 상태에서 JAR파일로 만들었다면 로드는 되지만 해당 메서드 사용시 에러가 발생한다. 
+  - 두 인터페이스를 구현한 Emplyee 클래스가 있다고 할 때, 두 인터페이스에 동일 이름의 기본 메서드가 있다고 할때, 어느것을 사용할 지 명시해 줘야 한다.
+  ```java
+  public class Emplyee implements Person, Identitfed {
+    public int getId() {
+      return Itentitfed.super.getId();
+    }
+  }
+  ```
+### Comparable 인터페이스
+  - 모든 클래스가 정렬 메서드를 무엇으로 할지 압의하면 정렬 알고리즘은 자신의 작업을 수행할 수 있는데, 이때 인터페이스가 필요하다. 
+  - 클래스가 자신이 갖고 있는 객체를 정렬할 수 있으려면 Comparable 인터페이스를 구현해야 한다. 
+  - 기본 정렬을 구현하는데 사용
+  - Arrays.sort(); // 기본 배열정렬
+  - Collections.sort() // 컬랙션 정렬
+  - 일반 자료형이 아닌 객체를 정렬하려면 정렬 기준을 잡아줘야한다. (클래스의 변수 암거나 정렬기준으로...)
+  ```java
+  public interface Comparable<T> {
+    int compareTo(T other);
+  }
+
+  public Class Emplytee implements Comparable<Employee> {
+    public int compareTo(Employee other) {
+      return getId() - other.getId();
+    }
+  }
+  ```
+
+### Comparator 인터페이스
+  - 기본 정렬 기준 외 다른 기준으로 정렬하고 자 할 때 사용.(오름차순)
+  
+  ```java
+  public interface Comparator<T> {
+    int compare(T first, T second);
+  }
+
+  class LengthComparator implements Comparator<String> {
+    public int compare(String first, String second) {
+      return frist.length() - second.length();
+    }
+  }
+
+  // 실제로 사용하려면 클래스의 인스턴스를 만들어 줘야 한다.
+  Comparator<String> comp = new LengthComparator();
+  if(comp.compare(word[i],word[j]>0)) ...
+  ```
+
+### Runnable 인터페이스
+  - 테스크(작업)을 변도의 스레드에 실행하거나 스레드 풀에 넣으려고 한다면 Runnable 인터페이스를 구현해야 한다. 
+
+## 람다 표현식
+###
+
+
