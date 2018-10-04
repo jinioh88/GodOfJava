@@ -1,4 +1,4 @@
-public class DigitSequence implements IntSequence {
+public class DigitSequence  {
     private int n;
 
     public DigitSequence(int n) {

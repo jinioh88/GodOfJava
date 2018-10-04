@@ -983,3 +983,43 @@
 ### 익명클래스
   - 내부 클래스를 익명으로 구현할 수 있는데, 내부 클래스에서 메스드를 두개 이상 제공해야 할 때만 익명 내부 클래스가 필요하다.
   - 메서드가 1개라면 람다 표현식을 사용할 수 있다. 
+
+### 상속
+  - 메서드 오버라이딩 시 매개변수는 부모가 가진것과 일치시켜야 하지만 리턴 타입은, 서브 타입으로 변경할 수 있다. 
+  - 서브 클래스 생성할 때 슈퍼 클래스의 변수가 private로 되있으면 접근하지 못하니까 슈퍼클래스 생성자를 호출해 초기화해야 한다. 
+    - 생성자 호출은 첫 문장에 적어야 함.
+  - 추상 클래스는 생성을 하지 못하지만 추상크래스의 참조객체에 구체적인 서브클래스 인스턴스를 담으면 선언이 가능하다.
+    - Person p = new Student("fred",1922);
+  - 슈퍼클래스와 인터페이스를 둘다 상속했는데 같은 이름의 메서드가 있다면 슈퍼클래스의 구현이 우선한다. 충돌날 일이 없다 그래서.
+
+### Object
+  - equals 메서드를 사용할 때 Object.equals(x,y) 를 사용하자. x.equals(y)는 x가 null일때 예외를 던진다. 
+  - clone()은 얕은 복사가 이뤄지는데 깊은 복사를 원하면 오버라이딩 해야한다. 
+    - 얕은복사  clone()을 이요하려면 클래스가 Cloneable을 구현해야 한다.
+    - 깊은 복사는 Object.clone 메서드를 사용할 필요가 전혀 없다. 
+
+### 열거
+  - 열거 타입 인스턴스들이 고정 되 있으므로 equals 메서드 사용할 필요 없이 ==를 사용하면 된다. 
+  - values()는 인스턴스를 선언한 순으로 정렬한 배열을 반환한다 
+  - 열거의 생성자는 반드시 비공개여야 한다. 
+  ```java
+public enum Operation {
+    Add {
+        public int eval(int arg1, int arg2) { return arg1+arg2; }
+    },
+    SUBSRACT {
+        public int eval(int arg1, int arg2) { return arg1-arg2; }
+    };
+
+    public abstract int eval(int arg1, int arg2);
+
+    public static void main(String[] args) {
+        Operation op = Operation.Add;
+        System.out.println(op.eval(1,2));
+
+        op = Operation.valueOf("SUBSRACT");
+        System.out.println(op.eval(3,1));
+    }
+    }
+  ```
+  - 열거 상수는 정적 멤버를 가질 수 있다. 열거 상수가 생성 된 다음 정적 멤버가 생성된다. 그러므로 열거 생성자에선 정적 멤버를 참조할 수 없다. 해결 방법은 정적 초기화 블록에서 초기화 하는것.
